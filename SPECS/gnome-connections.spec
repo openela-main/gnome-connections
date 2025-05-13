@@ -7,12 +7,15 @@
 
 Name:       gnome-connections
 Version:    41.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A remote desktop client for the GNOME desktop environment
 
 License:    GPLv3+
 URL:        https://gitlab.gnome.org/gnome/connections/-/wikis/home
 Source0:    https://download.gnome.org/sources/gnome-connections/%{url_ver}/gnome-connections-%{tarball_version}.tar.xz
+
+# https://issues.redhat.com/browse/RHEL-57692
+Patch0:     gnome-connections-41.2-rdp-graphics-pipeline.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -74,6 +77,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Fri Nov 22 2024 Marek Kasik <mkasik@redhat.com> - 41.2-2
+- Enable Graphics Pipeline for RDP connections
+- Resolves: RHEL-57692
+
 * Wed Jan 05 2022 Felipe Borges <feborges@redhat.com> - 41.2-1
 - Update to 41.2
   Related: rhbz#2031651

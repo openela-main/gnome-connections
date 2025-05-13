@@ -1,0 +1,779 @@
+--- gnome-connections-41.2/src/display-view.vala
++++ gnome-connections-41.2/src/display-view.vala
+@@ -104,23 +104,8 @@ namespace Connections {
+             if (event.type == EventType.GRAB_BROKEN)
+                 return false;
+ 
+-            if (event_box.get_child () != null) {
+-                var child = event_box.get_child ();
+-                var offset_x = (get_allocated_width () - child.get_allocated_width ()) / 2.0;
+-                var offset_y = (get_allocated_height () - child.get_allocated_height ()) / 2.0;
+-
+-                switch (event.get_event_type ()) {
+-                case Gdk.EventType.MOTION_NOTIFY:
+-                    event.motion.x -= offset_x;
+-                    event.motion.y -= offset_y;
+-                    break;
+-
+-                default:
+-                    break;
+-                }
+-
+-                child.event (event);
+-            }
++            if (event_box.get_child () != null)
++                event_box.get_child ().event (event);
+ 
+             return false;
+         } 
+--- gnome-connections-41.2/src/rdp-connection.vala
++++ gnome-connections-41.2/src/rdp-connection.vala
+@@ -66,10 +66,10 @@ namespace Connections {
+             display.bind_property ("username", this, "username", BindingFlags.BIDIRECTIONAL);
+             display.bind_property ("password", this, "password", BindingFlags.BIDIRECTIONAL);
+ 
+-            display.rdp_connected.connect (() => { show (); });
++            display.rdp_connected.connect (on_rdp_connection_connected_cb);
+             //display.rdp_needs_authentication.connect (on_rdp_auth_credential_cb);
+             display.rdp_auth_failure.connect (auth_failed);
+-            //display.size_allocate.connect (scale);
++            display.size_allocate.connect (scale);
+ 
+             need_username = need_password = true;
+         }
+@@ -101,6 +101,10 @@ namespace Connections {
+ 
+                 return;
+             }
++            else {
++                display.username = username;
++                display.password = password;
++            }
+ 
+             display.open_host (host, port);
+             connected = true;
+@@ -123,6 +127,23 @@ namespace Connections {
+ 
+             handle_auth ();
+         }
++
++        private void on_rdp_connection_connected_cb () {
++            connected = true;
++            scaling = true;
++
++            display.grab_focus ();
++            scale ();
++            show ();
++        }
++
++        public void scale () {
++            if (!display.is_open ())
++                return;
++
++            display.scaling = display.hexpand = true;
++            display.width_request = display.height_request = 0;
++        }
+     }
+ 
+     private class FrdpDisplay : Frdp.Display {
+--- gnome-connections-41.2/subprojects/gtk-frdp/src/frdp-session.c
++++ gnome-connections-41.2/subprojects/gtk-frdp/src/frdp-session.c
+@@ -19,6 +19,10 @@
+ #include <errno.h>
+ #include <freerdp/freerdp.h>
+ #include <freerdp/gdi/gdi.h>
++#include <freerdp/gdi/video.h>
++#include <freerdp/gdi/gfx.h>
++#include <freerdp/client/cmdline.h>
++#include <freerdp/client/channels.h>
+ #include <gdk/gdk.h>
+ #include <gio/gio.h>
+ #include <gtk/gtk.h>
+@@ -26,7 +30,7 @@
+ 
+ #include "frdp-session.h"
+ 
+-#define SELECT_TIMEOUT 50
++#define SELECT_TIMEOUT 10
+ #define FRDP_CONNECTION_THREAD_MAX_ERRORS 10
+ 
+ struct frdp_pointer
+@@ -41,6 +45,7 @@ struct _FrdpSessionPrivate
+   freerdp      *freerdp_session;
+ 
+   GtkWidget    *display;
++  cairo_format_t cairo_format;
+   cairo_surface_t *surface;
+   gboolean scaling;
+   double scale;
+@@ -59,6 +64,8 @@ struct _FrdpSessionPrivate
+   gboolean show_cursor;
+   gboolean cursor_null;
+   frdpPointer *cursor;
++  GQueue *area_draw_queue;  /* elem: GdkRectangle */
++  GMutex  area_draw_mutex;
+ };
+ 
+ G_DEFINE_TYPE_WITH_PRIVATE (FrdpSession, frdp_session, G_TYPE_OBJECT)
+@@ -91,6 +98,16 @@ struct frdp_context
+ };
+ typedef struct frdp_context frdpContext;
+ 
++static void queue_draw_area (FrdpSession *self,
++                             gint         x,
++                             gint         y,
++                             gint         width,
++                             gint         height);
++
++static void frdp_session_configure_event (GtkWidget *widget,
++                                          GdkEvent  *event,
++                                          gpointer   user_data);
++
+ static void
+ frdp_session_update_mouse_pointer (FrdpSession  *self)
+ {
+@@ -153,143 +170,58 @@ frdp_session_update_mouse_pointer (FrdpS
+   gdk_window_set_cursor (window, cursor);
+ }
+ 
+-static BOOL
+-frdp_Pointer_New(rdpContext* context, rdpPointer* pointer)
++static guint32
++frdp_session_get_best_color_depth (FrdpSession *self)
+ {
+-  frdpContext *fcontext = (frdpContext*) context;
+-  frdpPointer *fpointer = (frdpPointer*) pointer;
+-  int stride;
+-	unsigned char *data;
+-  cairo_surface_t *surface;
+-
+-	if (!fcontext || !fpointer)
+-		return FALSE;
+-
+-  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, pointer->width,
+-                                        pointer->height);
+-  if (!surface) {
+-    return FALSE;
+-  }
+-
+-  { /* FreeRDP BUG https://github.com/FreeRDP/FreeRDP/issues/5061
+-     * the function freerdp_image_copy_from_pointer_data
+-     * does not initialize the buffer which results in broken alpha data. */
+-    cairo_t* cairo = cairo_create (surface);
+-
+-    cairo_set_source_rgba (cairo, 0.0, 0.0, 0.0, 1.0);
+-    cairo_fill (cairo);
+-    cairo_paint (cairo);
+-    cairo_destroy (cairo);
+-  }
++  GdkScreen *display;
++  GdkVisual *visual;
+ 
+-  data = cairo_image_surface_get_data (surface);
+-  if (!data) {
+-    goto fail;
+-  }
+-
+-  stride = cairo_format_stride_for_width (CAIRO_FORMAT_ARGB32, pointer->width);
+-	if (!freerdp_image_copy_from_pointer_data (data, PIXEL_FORMAT_BGRA32,
+-                                             stride, 0, 0, pointer->width,
+-                                             pointer->height,
+-                                             pointer->xorMaskData,
+-                                             pointer->lengthXorMask,
+-                                             pointer->andMaskData,
+-                                             pointer->lengthAndMask,
+-                                             pointer->xorBpp,
+-                                             &context->gdi->palette))
+-    goto fail;
++  display = gdk_screen_get_default ();
++  visual = gdk_screen_get_rgba_visual (display);
+ 
+-  fpointer->data = surface;
+-  return TRUE;
+-fail:
+-  if (surface)
+-    cairo_surface_destroy (surface);
+-	return FALSE;
++  return gdk_visual_get_depth (visual);
+ }
+ 
+ static void
+-frdp_Pointer_Free (rdpContext* context, rdpPointer* pointer)
++create_cairo_surface (FrdpSession *self)
+ {
+-  frdpPointer *fpointer = (frdpPointer*) pointer;
++  FrdpSessionPrivate *priv = self->priv;
++  rdpGdi             *gdi;
++  gint                stride;
+ 
+-  if (fpointer && fpointer->data) {
+-    cairo_surface_destroy (fpointer->data);
+-    fpointer->data = NULL;
++  if (priv->surface != NULL) {
++    cairo_surface_mark_dirty (priv->surface);
++    cairo_surface_destroy (priv->surface);
++    self->priv->surface = NULL;
+   }
+-}
+-
+-static BOOL
+-frdp_Pointer_Set (rdpContext* context,
+-                  const rdpPointer* pointer)
+-{
+-  frdpContext *fcontext = (frdpContext*) context;
+-  frdpPointer *fpointer = (frdpPointer*) pointer;
+-  FrdpSessionPrivate *priv = fcontext->self->priv;
+-
+-  priv->cursor = fpointer;
+-  priv->cursor_null = FALSE;
+-
+-  frdp_session_update_mouse_pointer (fcontext->self);
+-	return TRUE;
+-}
+-
+-static BOOL
+-frdp_Pointer_SetNull (rdpContext* context)
+-{
+-  frdpContext *fcontext = (frdpContext*) context;
+-  FrdpSessionPrivate *priv = fcontext->self->priv;
+ 
+-  priv->cursor = NULL;
+-  priv->cursor_null = TRUE;
++  gdi = priv->freerdp_session->context->gdi;
+ 
+-  frdp_session_update_mouse_pointer (fcontext->self);
+-
+-  return TRUE;
+-}
+-
+-static BOOL
+-frdp_Pointer_SetDefault (rdpContext* context)
+-{
+-  frdpContext *fcontext = (frdpContext*) context;
+-  FrdpSessionPrivate *priv = fcontext->self->priv;
+-
+-  priv->cursor = NULL;
+-  priv->cursor_null = FALSE;
+-  frdp_session_update_mouse_pointer (fcontext->self);
+-	return TRUE;
+-}
+-
+-static BOOL
+-frdp_Pointer_SetPosition (rdpContext* context, UINT32 x, UINT32 y)
+-{
+-  return TRUE;
+-}
+-
+-static void
+-frdp_register_pointer (rdpGraphics* graphics)
+-{
+-	rdpPointer pointer;
++  stride = cairo_format_stride_for_width (priv->cairo_format, gdi->width);
++  self->priv->surface =
++      cairo_image_surface_create_for_data ((unsigned char*) gdi->primary_buffer,
++                                           priv->cairo_format,
++                                           gdi->width,
++                                           gdi->height,
++                                           stride);
++  cairo_surface_flush (priv->surface);
+ 
+-	pointer.size = sizeof(frdpPointer);
+-	pointer.New = frdp_Pointer_New;
+-	pointer.Free = frdp_Pointer_Free;
+-	pointer.Set = frdp_Pointer_Set;
+-	pointer.SetNull = frdp_Pointer_SetNull;
+-	pointer.SetDefault = frdp_Pointer_SetDefault;
+-	pointer.SetPosition = frdp_Pointer_SetPosition;
+-	graphics_register_pointer(graphics, &pointer);
++  frdp_session_configure_event (priv->display, NULL, self);
+ }
+ 
+-static guint32
+-frdp_session_get_best_color_depth (FrdpSession *self)
++static gboolean
++frdp_desktop_resize (rdpContext *context)
+ {
+-  GdkScreen *display;
+-  GdkVisual *visual;
+-
+-  display = gdk_screen_get_default ();
+-  visual = gdk_screen_get_rgba_visual (display);
++  FrdpSession *self = ((frdpContext *) context)->self;
++  rdpGdi      *gdi = context->gdi;
+ 
+-  return gdk_visual_get_depth (visual);
++  if (gdi_resize (gdi,
++                  context->settings->DesktopWidth,
++                  context->settings->DesktopHeight)) {
++    return TRUE;
++  } else {
++    return FALSE;
++  }
+ }
+ 
+ static void
+@@ -298,22 +230,37 @@ frdp_session_configure_event (GtkWidget
+                               gpointer   user_data)
+ {
+   FrdpSession *self = (FrdpSession*) user_data;
++  FrdpSessionPrivate *priv = self->priv;
++  GtkWidget *scrolled;
+   rdpSettings *settings = self->priv->freerdp_session->settings;
+-  double width, height;
++  double width, height, widget_ratio, server_ratio;
++  rdpGdi *gdi;
+ 
+-  if (self->priv->scaling) {
+-    width = (double)gtk_widget_get_allocated_width (widget);
+-    height = (double)gtk_widget_get_allocated_height (widget);
++  if (priv->freerdp_session == NULL)
++    return;
++
++  gdi = priv->freerdp_session->context->gdi;
++
++  if (priv->surface == NULL)
++    create_cairo_surface (self);
+ 
+-    if (width < height)
+-      self->priv->scale = width / settings->DesktopWidth;
+-    else
+-      self->priv->scale = height / settings->DesktopHeight;
++  scrolled = gtk_widget_get_ancestor (widget, GTK_TYPE_SCROLLED_WINDOW);
++  width = (double)gtk_widget_get_allocated_width (scrolled);
++  height = (double)gtk_widget_get_allocated_height (scrolled);
+ 
+-    settings->DesktopScaleFactor = self->priv->scale;
++  if (priv->scaling) {
++      widget_ratio = height > 0 ? width / height : 1.0;
++      server_ratio = settings->DesktopHeight > 0 ? (double) settings->DesktopWidth / settings->DesktopHeight : 1.0;
++
++      if (widget_ratio > server_ratio)
++        self->priv->scale = height / settings->DesktopHeight;
++      else
++        self->priv->scale = width / settings->DesktopWidth;
+ 
+-    self->priv->offset_x = (width - settings->DesktopWidth * self->priv->scale) / 2.0;
+-    self->priv->offset_y = (height - settings->DesktopHeight * self->priv->scale) / 2.0;
++      self->priv->offset_x = (width - settings->DesktopWidth * self->priv->scale) / 2.0;
++      self->priv->offset_y = (height - settings->DesktopHeight * self->priv->scale) / 2.0;
++  } else {
++    gtk_widget_set_size_request (priv->display, gdi->width, gdi->height);
+   }
+ 
+   frdp_session_update_mouse_pointer (self);
+@@ -335,6 +282,23 @@ frdp_session_draw (GtkWidget *widget,
+ {
+   FrdpSession *self = (FrdpSession*) user_data;
+ 
++  if (!self->priv->is_connected)
++    return FALSE;
++
++  if (self->priv->surface == NULL ||
++      (self->priv->freerdp_session->context->gdi->width != cairo_image_surface_get_width (self->priv->surface) ||
++       self->priv->freerdp_session->context->gdi->height != cairo_image_surface_get_height (self->priv->surface))) {
++    create_cairo_surface (self);
++  }
++
++  cairo_rectangle (cr,
++                   self->priv->offset_x,
++                   self->priv->offset_y,
++                   cairo_image_surface_get_width (self->priv->surface) * self->priv->scale,
++                   cairo_image_surface_get_height (self->priv->surface) * self->priv->scale);
++  cairo_set_source_rgba (cr, 0, 0, 0, 1);
++  cairo_fill (cr);
++
+   if (self->priv->scaling) {
+       cairo_translate (cr, self->priv->offset_x, self->priv->offset_y);
+       cairo_scale (cr, self->priv->scale, self->priv->scale);
+@@ -385,9 +350,61 @@ frdp_authenticate (freerdp  *freerdp_ses
+                                     domain);
+ }
+ 
++static void
++frdp_on_channel_connected_event_handler (void                      *context,
++                                         ChannelConnectedEventArgs *e)
++{
++  frdpContext *ctx = (frdpContext *) context;
++
++  if (strcmp (e->name, RDPGFX_DVC_CHANNEL_NAME) == 0) {
++    gdi_graphics_pipeline_init (ctx->context.gdi, (RdpgfxClientContext *) e->pInterface);
++  } else if (strcmp (e->name, GEOMETRY_DVC_CHANNEL_NAME) == 0) {
++    gdi_video_geometry_init (ctx->context.gdi, (GeometryClientContext *) e->pInterface);
++  } else if (strcmp (e->name, VIDEO_CONTROL_DVC_CHANNEL_NAME) == 0) {
++    gdi_video_control_init (ctx->context.gdi, (VideoClientContext *) e->pInterface);
++  } else if (strcmp (e->name, VIDEO_DATA_DVC_CHANNEL_NAME) == 0) {
++    gdi_video_data_init (ctx->context.gdi, (VideoClientContext *) e->pInterface);
++  }
++}
++
++static void
++frdp_on_channel_disconnected_event_handler (void                         *context,
++                                            ChannelDisconnectedEventArgs *e)
++{
++  frdpContext *ctx = (frdpContext *) context;
++
++  if (strcmp (e->name, RDPGFX_DVC_CHANNEL_NAME) == 0) {
++    gdi_graphics_pipeline_uninit (ctx->context.gdi, (RdpgfxClientContext *) e->pInterface);
++  } else if (strcmp (e->name, GEOMETRY_DVC_CHANNEL_NAME) == 0) {
++    gdi_video_geometry_uninit (ctx->context.gdi, (GeometryClientContext *) e->pInterface);
++  } else if (strcmp (e->name, VIDEO_CONTROL_DVC_CHANNEL_NAME) == 0) {
++    gdi_video_control_uninit (ctx->context.gdi, (VideoClientContext *) e->pInterface);
++  } else if (strcmp (e->name, VIDEO_DATA_DVC_CHANNEL_NAME) == 0) {
++    gdi_video_data_uninit (ctx->context.gdi, (VideoClientContext *) e->pInterface);
++  }
++}
++
++static gboolean
++frdp_load_channels (freerdp *instance)
++{
++  instance->context->settings->DeviceRedirection = FALSE;
++  if (!freerdp_client_load_addins (instance->context->channels, instance->context->settings))
++    return FALSE;
++
++  return TRUE;
++}
++
+ static gboolean
+ frdp_pre_connect (freerdp *freerdp_session)
+ {
++  rdpContext *context = freerdp_session->context;
++
++  PubSub_SubscribeChannelConnected (context->pubSub,
++                                    frdp_on_channel_connected_event_handler);
++  PubSub_SubscribeChannelDisconnected (context->pubSub,
++                                       frdp_on_channel_disconnected_event_handler);
++
++  frdp_load_channels (freerdp_session);
+   return TRUE;
+ }
+ 
+@@ -402,6 +419,30 @@ frdp_begin_paint (rdpContext *context)
+   return TRUE;
+ }
+ 
++static void
++queue_draw_area (FrdpSession *self,
++                 gint x,
++                 gint y,
++                 gint width,
++                 gint height)
++{
++  FrdpSessionPrivate *priv = self->priv;
++  GdkRectangle       *rectangle;
++
++  rectangle = g_new (GdkRectangle, 1);
++  rectangle->x = x;
++  rectangle->y = y;
++  rectangle->width = width;
++  rectangle->height = height;
++
++  g_mutex_lock (&priv->area_draw_mutex);
++
++  if (priv->area_draw_queue != NULL)
++    g_queue_push_tail (priv->area_draw_queue, rectangle);
++
++  g_mutex_unlock (&priv->area_draw_mutex);
++}
++
+ static gboolean
+ frdp_end_paint (rdpContext *context)
+ {
+@@ -422,70 +463,75 @@ frdp_end_paint (rdpContext *context)
+   priv = self->priv;
+ 
+   if (priv->scaling) {
+-      pos_x = self->priv->offset_x + x * priv->scale;
+-      pos_y = self->priv->offset_y + y * priv->scale;
+-      gtk_widget_queue_draw_area (priv->display,
+-                                  floor (pos_x),
+-                                  floor (pos_y),
+-                                  ceil (pos_x + w * priv->scale) - floor (pos_x),
+-                                  ceil (pos_y + h * priv->scale) - floor (pos_y));
++    pos_x = self->priv->offset_x + x * priv->scale;
++    pos_y = self->priv->offset_y + y * priv->scale;
++    queue_draw_area (self,
++                     floor (pos_x),
++                     floor (pos_y),
++                     ceil (pos_x + w * priv->scale) - floor (pos_x),
++                     ceil (pos_y + h * priv->scale) - floor (pos_y));
+   } else {
+-    gtk_widget_queue_draw_area (priv->display, x, y, w, h);
++    queue_draw_area (self, x, y, w, h);
+   }
+ 
+   return TRUE;
+ }
+ 
++static void
++frdp_post_disconnect (freerdp *instance)
++{
++  FrdpSession *self;
++  rdpContext  *context;
++
++  if (!instance || !instance->context)
++    return;
++
++  self = ((frdpContext *) instance->context)->self;
++
++  g_signal_handlers_disconnect_by_func (self->priv->display, G_CALLBACK (frdp_session_draw), self);
++  g_signal_handlers_disconnect_by_func (self->priv->display, G_CALLBACK (frdp_session_configure_event), self);
++
++  context = instance->context;
++  PubSub_UnsubscribeChannelConnected (context->pubSub,
++                                      frdp_on_channel_connected_event_handler);
++  PubSub_UnsubscribeChannelDisconnected (context->pubSub,
++                                         frdp_on_channel_disconnected_event_handler);
++  gdi_free (instance);
++}
++
+ static gboolean
+ frdp_post_connect (freerdp *freerdp_session)
+ {
+   FrdpSession *self = ((frdpContext *) freerdp_session->context)->self;
+-  cairo_format_t cairo_format;
+-  rdpGdi *gdi;
+   guint32 color_format;
+-  gint stride;
+ 
+   switch (frdp_session_get_best_color_depth (self)) {
+     case 32:
+-      color_format = PIXEL_FORMAT_BGRA32;
+-      cairo_format = CAIRO_FORMAT_ARGB32;
++      color_format = PIXEL_FORMAT_BGRX32;
++      self->priv->cairo_format = CAIRO_FORMAT_ARGB32;
+       break;
+     case 24:
+       color_format = PIXEL_FORMAT_BGRX32;
+-      cairo_format = CAIRO_FORMAT_RGB24;
++      self->priv->cairo_format = CAIRO_FORMAT_RGB24;
+       break;
+     case 16:
+     case 15:
+       color_format = PIXEL_FORMAT_BGR16;
+-      cairo_format = CAIRO_FORMAT_RGB16_565;
++      self->priv->cairo_format = CAIRO_FORMAT_RGB16_565;
+       break;
+     default:
+       color_format = PIXEL_FORMAT_BGRX32;
+-      cairo_format = CAIRO_FORMAT_RGB16_565;
++      self->priv->cairo_format = CAIRO_FORMAT_RGB16_565;
+       break;
+   }
+ 
+   gdi_init (freerdp_session, color_format);
+-  gdi = freerdp_session->context->gdi;
+ 
+-  frdp_register_pointer (freerdp_session->context->graphics);
+-  pointer_cache_register_callbacks(freerdp_session->context->update);
+   freerdp_session->update->BeginPaint = frdp_begin_paint;
+   freerdp_session->update->EndPaint = frdp_end_paint;
++  freerdp_session->update->DesktopResize = frdp_desktop_resize;
+ 
+-  stride = cairo_format_stride_for_width (cairo_format, gdi->width);
+-  self->priv->surface =
+-      cairo_image_surface_create_for_data ((unsigned char*) gdi->primary_buffer,
+-                                           cairo_format,
+-                                           gdi->width,
+-                                           gdi->height,
+-                                           stride);
+-
+-  gtk_widget_queue_draw_area (self->priv->display,
+-                              0,
+-                              0,
+-                              gdi->width,
+-                              gdi->height);
++  create_cairo_surface (self);
+ 
+   return TRUE;
+ }
+@@ -502,9 +548,13 @@ idle_close (gpointer user_data)
+     self->priv->update_id = 0;
+   }
+ 
++  g_mutex_lock (&self->priv->area_draw_mutex);
++  g_queue_clear_full (self->priv->area_draw_queue, g_free);
++  g_mutex_unlock (&self->priv->area_draw_mutex);
++  g_mutex_clear (&self->priv->area_draw_mutex);
++
+   if (self->priv->freerdp_session != NULL) {
+     freerdp_disconnect (self->priv->freerdp_session);
+-    freerdp_context_free (self->priv->freerdp_session);
+     g_clear_pointer (&self->priv->freerdp_session, freerdp_free);
+   }
+ 
+@@ -526,31 +576,49 @@ update (gpointer user_data)
+   DWORD usedHandles;
+   FrdpSessionPrivate *priv;
+   FrdpSession *self = (FrdpSession*) user_data;
++  GdkRectangle *rectangle;
+ 
+   priv = self->priv;
+ 
++  g_mutex_lock (&priv->area_draw_mutex);
++
++  while (priv->area_draw_queue != NULL && !g_queue_is_empty (priv->area_draw_queue)) {
++      rectangle = g_queue_pop_head (priv->area_draw_queue);
++      gtk_widget_queue_draw_area (priv->display, rectangle->x, rectangle->y, rectangle->width, rectangle->height);
++      g_free (rectangle);
++  }
++
++  g_mutex_unlock (&priv->area_draw_mutex);
++
++  if (freerdp_shall_disconnect (priv->freerdp_session)) {
++      priv->update_id = 0;
++      g_idle_add ((GSourceFunc) idle_close, self);
++
++      return FALSE;
++  }
++
+   usedHandles = freerdp_get_event_handles (priv->freerdp_session->context,
+                                            handles, ARRAYSIZE(handles));
+   if (usedHandles == 0) {
+       g_warning ("Failed to get FreeRDP event handle");
++      priv->update_id = 0;
+       return FALSE;
+   }
+ 
+   status = WaitForMultipleObjects (usedHandles, handles, FALSE, SELECT_TIMEOUT);
+   if (status == WAIT_TIMEOUT)
+-    return TRUE;
+-  if (status == WAIT_FAILED)
+-    return FALSE;
+-
+-  if (!freerdp_check_event_handles (priv->freerdp_session->context)) {
+-      g_warning ("Failed to check FreeRDP file descriptor");
++      return TRUE;
++  if (status == WAIT_FAILED) {
++      priv->update_id = 0;
+       return FALSE;
+   }
+ 
+-  if (freerdp_shall_disconnect (priv->freerdp_session)) {
+-      g_idle_add ((GSourceFunc) idle_close, self);
++  if (!freerdp_check_event_handles (priv->freerdp_session->context)) {
++    if (freerdp_get_last_error(priv->freerdp_session->context) == FREERDP_ERROR_SUCCESS) {
++      g_warning ("Failed to check FreeRDP file descriptor");
++    }
+ 
+-      return FALSE;
++    return TRUE;
+   }
+ 
+   return TRUE;
+@@ -560,12 +628,14 @@ static void
+ frdp_session_init_freerdp (FrdpSession *self)
+ {
+   FrdpSessionPrivate *priv = self->priv;
+-  rdpSettings *settings;
++  rdpSettings        *settings;
++  gchar              *build_options;
+ 
+   /* Setup FreeRDP session */
+   priv->freerdp_session = freerdp_new ();
+   priv->freerdp_session->PreConnect = frdp_pre_connect;
+   priv->freerdp_session->PostConnect = frdp_post_connect;
++  priv->freerdp_session->PostDisconnect = frdp_post_disconnect;
+   priv->freerdp_session->Authenticate = frdp_authenticate;
+   priv->freerdp_session->VerifyCertificate = frdp_certificate_verify;
+   priv->freerdp_session->VerifyChangedCertificate = frdp_changed_certificate_verify;
+@@ -594,6 +664,23 @@ frdp_session_init_freerdp (FrdpSession *
+   settings->UseRdpSecurityLayer = FALSE;
+ 
+   settings->NegotiateSecurityLayer = TRUE;
++
++  settings->RemoteFxCodec = TRUE;
++  settings->RedirectClipboard = FALSE;
++  settings->ColorDepth = 32;
++  settings->SupportGraphicsPipeline = TRUE;
++
++  build_options = g_ascii_strup (freerdp_get_build_config (), -1);
++  if (g_strrstr (build_options, "WITH_GFX_H264=ON") != NULL) {
++    settings->GfxH264 = TRUE;
++    settings->GfxAVC444 = TRUE;
++  } else {
++    settings->GfxH264 = FALSE;
++    settings->GfxAVC444 = FALSE;
++  }
++  g_free (build_options);
++
++  freerdp_register_addin_provider(freerdp_channels_load_static_addin_entry, 0);
+ }
+ 
+ static void
+@@ -643,6 +730,9 @@ frdp_session_connect_thread (GTask
+     return;
+   }
+ 
++  gtk_widget_realize (self->priv->display);
++  create_cairo_surface (self);
++
+   g_signal_connect (self->priv->display, "draw",
+                     G_CALLBACK (frdp_session_draw), self);
+   g_signal_connect (self->priv->display, "configure-event",
+@@ -661,21 +751,20 @@ frdp_session_get_property (GObject    *o
+                            GParamSpec *pspec)
+ {
+   FrdpSession *self = (FrdpSession*) object;
+-  rdpSettings *settings = self->priv->freerdp_session->settings;
+ 
+   switch (property_id)
+     {
+       case PROP_HOSTNAME:
+-        g_value_set_string (value, settings->ServerHostname);
++        g_value_set_string (value, self->priv->hostname);
+         break;
+       case PROP_PORT:
+-        g_value_set_uint (value, settings->ServerPort);
++        g_value_set_uint (value, self->priv->port);
+         break;
+       case PROP_USERNAME:
+-        g_value_set_string (value, settings->Username);
++        g_value_set_string (value, self->priv->username);
+         break;
+       case PROP_PASSWORD:
+-        g_value_set_string (value, settings->Password);
++        g_value_set_string (value, self->priv->password);
+         break;
+       case PROP_DISPLAY:
+         g_value_set_object (value, self->priv->display);
+@@ -817,6 +906,9 @@ frdp_session_init (FrdpSession *self)
+ {
+   self->priv = frdp_session_get_instance_private (self);
+ 
++  g_mutex_init (&self->priv->area_draw_mutex);
++  self->priv->area_draw_queue = g_queue_new ();
++
+   self->priv->is_connected = FALSE;
+ }
+ 
+@@ -844,7 +936,19 @@ frdp_session_connect (FrdpSession
+   self->priv->port = port;
+ 
+   task = g_task_new (self, cancellable, callback, user_data);
+-  g_task_run_in_thread (task, frdp_session_connect_thread);
++  /* Turn off the asynchronous connection via GTask thread as the FreeRDP
++   * process then runs in the new thread which makes it hard to cooperate
++   * with the original thread running UI leading to random race conditions.
++   * Turn it on again if there will be an async support for connection
++   * added to FreeRDP.
++   * The disadvantage is that the application freezes during connection
++   * for some time.
++
++     g_task_run_in_thread (task, frdp_session_connect_thread);
++
++  */
++
++  frdp_session_connect_thread (task, self, user_data, cancellable);
+ 
+   g_object_unref (task);
+ }
+--- gnome-connections-41.2/subprojects/gtk-frdp/src/meson.build
++++ gnome-connections-41.2/subprojects/gtk-frdp/src/meson.build
+@@ -40,6 +40,7 @@ gtk_frdp_deps = [
+   # The 2.0.0-rc4 version is needed at least, but there is no easy way to detect this.
+   dependency('winpr2', version: '>= 2.0.0'),
+   dependency('freerdp2', version: '>= 2.0.0'),
++  dependency('freerdp-client2', version: '>= 2.0.0'),
+ 
+   dependency('gio-2.0', version: '>= 2.50'),
+   dependency('gtk+-3.0'),
