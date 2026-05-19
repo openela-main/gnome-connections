@@ -1,0 +1,29 @@
+From b2aef66ced478c63f5577cf59e0fb9c3d6d61df0 Mon Sep 17 00:00:00 2001
+From: Marek Kasik <mkasik@redhat.com>
+Date: Fri, 28 Mar 2025 12:41:25 +0100
+Subject: [PATCH] dialogs: Ask for authentication details in dialog text
+
+Do not show text asking for username and password when different combination
+of authentication details is required. Ask just for authentication details
+as combining different details into the text or just having texts for all
+combinations could be a nightmare for translators.
+---
+ src/dialogs.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/dialogs.vala b/src/dialogs.vala
+index b7363cc..dd26544 100644
+--- a/src/dialogs.vala
++++ b/src/dialogs.vala
+@@ -238,7 +238,7 @@ namespace Connections {
+             password_row.set_visible (need_password);
+             domain_row.set_visible (need_domain);
+ 
+-            authentication_text.label = _("The remote server “%s” requires a username and password to continue to connect.").printf (connection_name);
++            authentication_text.label = _("The remote server “%s” requires the following authentication details to continue to connect:").printf (connection_name);
+ 
+             mutex.unlock ();
+ 
+-- 
+2.52.0
+

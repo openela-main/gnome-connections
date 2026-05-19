@@ -7,12 +7,16 @@
 
 Name:           gnome-connections
 Version:        47.2.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/gnome/connections/-/wikis/home
 Source0:        https://download.gnome.org/sources/gnome-connections/%{url_ver}/gnome-connections-%{tarball_version}.tar.xz
+
+Patch:          gnome-connections-47.2.1-add-shortcuts-window.patch
+Patch:          gnome-connections-47.2.1-authentication-details.patch
+Patch:          gnome-connections-47.2.1-translations.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -83,6 +87,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Wed Feb 4 2026 Marek Kasik <mkasik@redhat.com> - 47.2.1-3
+- Make requests for passwords more general
+- Resolves: RHEL-80675
+
+* Mon Jan 19 2026 Marek Kasik <mkasik@redhat.com> - 47.2.1-2
+- Add shortcuts window
+- Resolves: RHEL-81195
+
 * Wed Jan 29 2025 Marek Kasik <mkasik@redhat.com> - 47.2.1-1
 - Update to 47.2.1
 - Resolves: RHEL-72789, RHEL-36611

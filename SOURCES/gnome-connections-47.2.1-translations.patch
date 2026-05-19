@@ -1,0 +1,2514 @@
+--- a/po/LINGUAS
++++ b/po/LINGUAS
+@@ -46,6 +46,7 @@ sr@latin
+ sv
+ th
+ tr
++ug
+ uk
+ vi
+ zh_CN
+--- a/po/be.po
++++ b/po/be.po
+@@ -166,11 +166,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+ "Аддалены сервер «%s» патрабуе імя карыстальніка і пароль, каб працягваць "
+-"злучэнне."
++"злучэнне:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/bg.po
++++ b/po/bg.po
+@@ -20,6 +20,44 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+ "X-Generator: Gtranslator 46.1\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Преглед"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Помощ"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Търсене"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Клавишни комбинации"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Спиране на програмата"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++#, fuzzy
++#| msgid "Connections"
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Свързване"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Цял екран"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -177,11 +215,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Отдалеченият сървър „%s“ изисква потребителско име и парола, за да продължи "
+-"свързването."
++"Отдалеченият сървър „%s“ изисква следните данни за удостоверяване, за да "
++"продължи свързването:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/ca.po
++++ b/po/ca.po
+@@ -18,6 +18,42 @@ msgstr ""
+ "Content-Transfer-Encoding: 8bit\n"
+ "X-Generator: Poedit 2.4.2\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Visió general"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Ajuda"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Cerca"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Dreceres de teclat"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Surt"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Pantalla de connexió"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Pantalla completa"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -164,11 +200,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"El servidor remot «%s» requereix un nom d'usuari i una clau per procedir a "
+-"la connexió."
++"El servidor remot «%s» requereix les següents dades d'autenticació per "
++"continuar la connexió:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/cs.po
++++ b/po/cs.po
+@@ -19,6 +19,42 @@ msgstr ""
+ "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+ "X-Generator: Poedit 3.5\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Přehled"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Nápověda"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Hledat"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Klávesové zkratky"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Ukončit"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Zobrazení připojení"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Celá obrazovka"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -164,11 +200,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Vzdálený server „%s“ vyžaduje uživatelské jméno a heslo pro pokračování v "
+-"připojení."
++"Vzdálený server „%s“ vyžaduje pro pokračování v připojení následující ověřovací "
++"údaje:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/da.po
++++ b/po/da.po
+@@ -17,6 +17,42 @@ msgstr ""
+ "Content-Transfer-Encoding: 8bit\n"
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Oversigt"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Hjælp"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Søg"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Tastaturgenveje"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Afslut"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Visning af forbindelse"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Fuldskærm"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -170,11 +206,9 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
+-msgstr ""
+-"Fjernserveren “%s” kræver et brugernavn og en adgangskode for at fortsætte "
+-"med at forbinde."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
++msgstr "Fjernserveren “%s” kræver følgende godkendelsesdetaljer for at fortsætte forbindelsen:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/el.po
++++ b/po/el.po
+@@ -18,6 +18,42 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ "X-Generator: Poedit 3.4.4\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Επισκόπηση"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Βοήθεια"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Αναζήτηση"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Συντομεύσεις πληκτρολογίου"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Έξοδος"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Προβολή Σύνδεσης"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Πλήρης οθόνη"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -173,12 +209,15 @@ msgstr ""
+ 
+ #: src/dialogs.vala:241
+ #, c-format
++#| msgid ""
++#| "The remote server “%s” requires a username and password to continue to "
++#| "connect."
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Ο απομακρυσμένος διακομιστής «%s» απαιτεί όνομα χρήστη και συνθηματικό για "
+-"να συνεχίσει τη σύνδεση."
++"Ο απομακρυσμένος διακομιστής «%s» απαιτεί τις ακόλουθες πληροφορίες "
++"πιστοποίησης για να συνεχίσει τη σύνδεση:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/en_GB.po
++++ b/po/en_GB.po
+@@ -20,6 +20,42 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ "X-Generator: Poedit 3.4.2\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Overview"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Help"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Search"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Keyboard Shortcuts"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Quit"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Connection Display"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Fullscreen"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -168,11 +204,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/eo.po
++++ b/po/eo.po
+@@ -18,6 +18,42 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+ "X-Generator: Gtranslator 42.0\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Superrigardo"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Helpo"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Serĉi"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Klavkombinoj"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Eliri"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Konekt-montrilo"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Tutekrana reĝimo"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:107
+@@ -139,6 +175,15 @@ msgstr "“%s” bezonas aŭtentigon"
+ msgid "Authentication failed: %s"
+ msgstr "Aŭtentigo malsukcesis: %s"
+ 
++#: src/dialogs.vala:241
++#, c-format
++msgid ""
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
++msgstr ""
++"La fora servilo “%s” bezonas la jenajn aŭtentigajn detalojn por daŭrigi la "
++"konekton:"
++
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:126
+ #, c-format
+--- a/po/es.po
++++ b/po/es.po
+@@ -20,6 +20,42 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1)\n"
+ "X-Generator: Gtranslator 46.1\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Vista general"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Ayuda"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Buscar"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Atajo del teclado"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Salir"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Mostrar conexión"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Pantalla completa"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -164,11 +200,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"El servidor remoto «%s» requiere un nombre de usuario y una contraseña para "
+-"conectarse."
++"El servidor remoto «%s» requiere los siguientes detalles de autenticación "
++"para conectarse:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/eu.po
++++ b/po/eu.po
+@@ -1,3 +1,44 @@
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Ikuspegi orokorra"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++#| msgid "Help"
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Laguntza"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++#| msgid "Search"
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Bilatu"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++#| msgid "Keyboard Shortcuts"
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Laster-teklak"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Irten"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++#| msgid "Connections"
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Konexio-bistaratzea"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++#| msgid "Fullscreen"
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Pantaila osoa"
++
+ # Basque translation for gnome-connections.
+ # Copyright (C) 2020 gnome-connections's COPYRIGHT HOLDER
+ # This file is distributed under the same license as the gnome-connections package.
+@@ -146,10 +187,13 @@ msgstr "Urruneko “%s” zerbitzariaren
+ 
+ #: src/dialogs.vala:241
+ #, c-format
+-msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
+-msgstr "Urruneko “%s” zerbitzariak erabiltzaile-izena eta pasahitza behar ditu konexioarekin jarraitzeko."
++#| msgid ""
++#| "The remote server “%s” requires a username and password to continue to "
++#| "connect."
++msgid ""
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
++msgstr "Urruneko “%s” zerbitzariak autentifikazio-xehetasunak behar ditu konexioarekin jarraitzeko:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/fa.po
++++ b/po/fa.po
+@@ -17,6 +17,42 @@ msgstr ""
+ "Content-Transfer-Encoding: 8bit\n"
+ "X-Generator: Poedit 3.4.4\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "نمای کلی"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "راهنما"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "جست‌وجو"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "میان‌برهای صفحه‌کلید"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "خروج"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "نمایش اتّصال"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "تمام‌صفحه"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7 data/org.gnome.Connections.desktop.in:3
+ #: src/application.vala:92 src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+ msgid "Connections"
+@@ -160,8 +196,9 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to connect."
+-msgstr "ادامهٔ وصل شدن به کارساز دوردست «%s» نیازمند نام کاربری و گذرواژه است."
++"The remote server “%s” requires the following authentication details to continue to "
++"connect:"
++msgstr "کارساز دوردست «%s» برای ادامهٔ اتّصال نیازمند جزییات هویت‌سنجی زیر است:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/fi.po
++++ b/po/fi.po
+@@ -18,6 +18,42 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ "X-Generator: Poedit 3.4.4\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Yleisnäkymä"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Ohje"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Etsi"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Pikanäppäimet"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Lopeta"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Yhteyden näkymä"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Koko näyttö"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -162,11 +198,10 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to continue "
++"to connect:"
+ msgstr ""
+-"Etäpalvelin “%s” vaatii käyttäjätunnuksen ja salasanan jatkaakseen "
+-"yhdistämistä."
++"Etäpalvelin “%s” vaatii seuraavat kirjautumistiedot jatkaakseen yhdistämistä:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/fr.po
++++ b/po/fr.po
+@@ -169,11 +169,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Le serveur distant « %s » exige un nom d’utilisateur et un mot de passe pour "
+-"établir la connexion."
++"Le serveur distant « %s » nécessite les informations d’authentification "
++"suivantes pour poursuivre la connexion :"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/fur.po
++++ b/po/fur.po
+@@ -163,11 +163,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Il servidôr lontan “%s” al à bisugne di un non utent e de password par "
+-"continuâ la conession."
++"Il servidôr lontan “%s” al à bisugne di chescj detais di autenticazion par "
++"continuâ la conession:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/gl.po
++++ b/po/gl.po
+@@ -24,6 +24,42 @@ msgstr ""
+ "X-DL-Domain: po\n"
+ "X-DL-State: Translating\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Vista xeral"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Axuda"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Buscar"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Atallos de teclado"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Saír "
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Conexión da pantalla"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Pantalla completa"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -168,11 +204,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"O servidor remoto «%s» require dun nome de usuario e contrasinal para "
+-"continuar a conexión."
++"O servidor remoto «%s» require a seguinte información de autenticación para "
++"continuar coa conexión:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/he.po
++++ b/po/he.po
+@@ -20,6 +20,42 @@ msgstr ""
+ "2 : 3)\n"
+ "X-Generator: Gtranslator 46.1\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "סקירה"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "עזרה"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "חיפוש"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "צירופי מקשים"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "יציאה"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "תצוגת חיבור"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "מסך מלא"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -167,9 +203,9 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
+-msgstr "השרת המרוחק „%s” דורש שם משתמש וסיסמה כדי להמשיך בחיבור."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
++msgstr "השרת המרוחק „%s” דורש שם משתמש וססמה כדי להמשיך בחיבור:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/hu.po
++++ b/po/hu.po
+@@ -19,6 +19,47 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ "X-Generator: Lokalize 23.08.4\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Áttekintés"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++#| msgid "Help"
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Súgó"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++#| msgid "Search"
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Keresés"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++#| msgid "Keyboard Shortcuts"
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Gyorsbillentyűk"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Kilépés"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++#| msgid "Connections"
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Kapcsolat megjelenítése"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++#| msgid "Fullscreen"
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Teljes képernyő"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -164,12 +205,15 @@ msgstr ""
+ 
+ #: src/dialogs.vala:241
+ #, c-format
++#| msgid ""
++#| "The remote server “%s” requires a username and password to continue to "
++#| "connect."
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"A(z) „%s” távoli kiszolgáló felhasználónevet és jelszót követel meg a "
+-"kapcsolódás folytatásához."
++"A(z) „%s” távoli kiszolgáló a következő hitelesítési részleteket követeli meg "
++"a kapcsolódás folytatásához:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/id.po
++++ b/po/id.po
+@@ -165,11 +165,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Peladen jarak jauh “%s” memerlukan nama pengguna dan kata sandi untuk terus "
+-"terhubung."
++"Peladen jarak jauh ”%s” memerlukan rincian autentikasi berikut untuk terus "
++"terhubung:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/ja.po
++++ b/po/ja.po
+@@ -17,6 +17,42 @@ msgstr ""
+ "Content-Transfer-Encoding: 8bit\n"
+ "Plural-Forms: nplurals=1; plural=0;\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "概要"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "ヘルプ"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "検索"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "キーボードショートカット"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "終了"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "接続画面"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "フルスクリーン"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:108
+@@ -138,6 +174,14 @@ msgstr "“%s”は認証が必要です
+ msgid "Authentication failed: %s"
+ msgstr "認証に失敗しました: %s"
+ 
++#: src/dialogs.vala:241
++#, c-format
++msgid ""
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
++msgstr ""
++"リモートサーバー “%s” は接続を続けるために、以下の認証情報を要求しています:"
++
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:141
+ #, c-format
+--- a/po/ka.po
++++ b/po/ka.po
+@@ -18,6 +18,42 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ "X-Generator: Poedit 3.3.2\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "მიმოხილვა"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "დახმარება"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "ძებნა"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "კლავიატურის მალსახმობები"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "გასვლა"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "კავშირის ჩვენება"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "სრულ ეკრანზე"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -163,11 +199,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"დაშორებულ სერვერთან \"%s\" მიერთების გასაგრძელებლად საჭიროა მომხმარებლის "
+-"სახელი და პაროლი."
++"დაშორებული სერვერთი \"%s\" მიერთების გასაგრძელებლად ითხოვს შემდეგ "
++"ავთენტიკაციის დეტალებს:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/kk.po
++++ b/po/kk.po
+@@ -166,11 +166,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"\"%s\" қашықтағы сервері оған байланысуды жалғастыру үшін пайдаланушы аты "
+-"мен парольді талап етеді."
++"\"%s\" қашықтағы сервері оған байланысуды жалғастыру үшін келесі "
++"аутентификация деректерін талап етеді:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/ko.po
++++ b/po/ko.po
+@@ -20,6 +20,42 @@ msgstr ""
+ "Plural-Forms: nplurals=1; plural=0;\n"
+ "X-Generator: Poedit 3.5\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "개요"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "도움말"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "검색"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "키보드 바로 가기"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "끝내기"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "연결 화면"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "전체 화면"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -167,9 +203,9 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
+-msgstr "“%s” 원격 서버에 연결을 계속하려면 사용자 이름과 암호가 필요합니다."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
++msgstr "원격 서버 “%s”에 연결을 계속하려면 다음 인증 세부 정보가 필요합니다:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/lt.po
++++ b/po/lt.po
+@@ -19,6 +19,42 @@ msgstr ""
+ "(n%100<10 || n%100>=20) ? 1 : 2);\n"
+ "X-Generator: Poedit 3.4.4\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Apžvalga"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Žinynas"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Ieškoti"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Klaviatūros trumpiniai"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Išeiti"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Ryšio rodymas"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Visame ekrane"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -164,11 +200,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Norint prisijungti prie nutolusio serverio „%s“ reikia naudotojo vardo ir "
+-"slaptažodžio."
++"Norint prisijungti prie nutolusio serverio „%s“ reikia tapatybės "
++"patvirtinimo informacijos:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/nl.po
++++ b/po/nl.po
+@@ -18,6 +18,42 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ "X-Generator: Poedit 3.4.4\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Overzicht"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Hulp"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Zoeken"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Sneltoetsen"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Sluiten"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Verbindingsweergave"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Schermvullend"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -167,12 +203,8 @@ msgstr ""
+ 
+ #: src/dialogs.vala:241
+ #, c-format
+-msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
+-msgstr ""
+-"De externe server ‘%s’ vereist een gebruikersnaam en wachtwoord om "
+-"verbinding te kunnen maken."
++msgid "The remote server “%s” requires the following authentication details to continue to connect:"
++msgstr "De externe server ‘%s’ vereist volgende aanmeldingsgegevens om verbinding te kunnen maken:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/oc.po
++++ b/po/oc.po
+@@ -17,6 +17,42 @@ msgstr ""
+ "Content-Transfer-Encoding: 8bit\n"
+ "X-Generator: Poedit 3.4.3\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Vista d'ensemble"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Ajuda"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Recercar"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Acorchis de clavièr"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Quitar"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Afichatge de las connexions"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Ecran complèt"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -163,12 +199,8 @@ msgstr ""
+ 
+ #: src/dialogs.vala:241
+ #, c-format
+-msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
+-msgstr ""
+-"Lo servidor alonhat « %s » requerís un nom d’utilizaire e senhal per "
+-"contunhar a s’i connectar."
++msgid "The remote server “%s” requires the following authentication details to continue to connect:"
++msgstr "Lo servidor alonhat « %s » requerís los elements de connexion seguents per contunhar a s’i connectar :"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/pl.po
++++ b/po/pl.po
+@@ -19,6 +19,42 @@ msgstr ""
+ "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+ "|| n%100>=20) ? 1 : 2);\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Przegląd"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Pomoc"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Wyszukiwanie"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Skróty klawiszowe"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Zakończenie działania"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Wyświetlanie połączenia"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Pełny ekran"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -166,11 +202,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Zdalny serwer „%s” wymaga nazwy użytkownika i hasła, aby kontynuować "
+-"łączenie."
++"Zdalny serwer „%s” wymaga tych informacji o uwierzytelnieniu, aby "
++"kontynuować łączenie:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/pt_BR.po
++++ b/po/pt_BR.po
+@@ -27,6 +27,42 @@ msgstr ""
+ "X-DL-Domain: po\n"
+ "X-DL-State: Translating\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Visão geral"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Ajuda"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Pesquisar"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Atalhos de teclado"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Sai"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Tela da Conexão"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Tela cheia"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -178,11 +214,10 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"O servidor remoto “%s” requer um nome de usuário e senha para continuar a "
+-"conexão."
++"O servidor remoto “%s” requer os seguintes detalhes de autenticação para continuar a conexão."
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/ro.po
++++ b/po/ro.po
+@@ -20,6 +20,42 @@ msgstr ""
+ "20)) ? 1 : 2);;\n"
+ "X-Generator: Poedit 3.4.4\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Prezentare"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Ajutor"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Caută"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Scurtături"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Închide"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Ecranul conectat"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Pe tot ecranul"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -172,11 +208,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Serverul de la distanță „%s” necesită un nume de utilizator și o parolă "
+-"pentru a continua conectarea."
++"Serverul de la distanță „%s” cere următoarele informații pentru a continua "
++"conectarea:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/ru.po
++++ b/po/ru.po
+@@ -19,6 +19,42 @@ msgstr ""
+ "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+ "X-Generator: Poedit 3.4.4\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Обзор"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Справка"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Поиск"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Комбинации клавиш"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Закрыть"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Дисплей подключения"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Полноэкранный режим"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -168,11 +204,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Удаленному серверу “%s” требуются имя пользователя и пароль для продолжения "
+-"подключения."
++"Удаленному серверу “%s” требуются следующие данные аутентификации для "
++"продолжения подключения:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/sk.po
++++ b/po/sk.po
+@@ -162,10 +162,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to continue "
++"to connect:"
+ msgstr ""
+-"Vzdialený server „%s“ vyžaduje pred pokračovaním zadanie mena používateľa a hesla."
++"Vzdialený server „%s“ vyžaduje pred pokračovaním v pripojení nasledujúce "
++"podrobnosti o overení totožnosti:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:128
+--- a/po/sl.po
++++ b/po/sl.po
+@@ -22,6 +22,42 @@ msgstr ""
+ "X-Poedit-SourceCharset: utf-8\n"
+ "X-Generator: Poedit 2.2.1\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Pregled"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Pomoč"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Iskanje"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Pokaže tipkovne bližnjice"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Konča program"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Povezani zaslon"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Celozaslonski način"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -169,12 +205,8 @@ msgstr ""
+ 
+ #: src/dialogs.vala:241
+ #, c-format
+-msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
+-msgstr ""
+-"Oddaljeni strežnik »%s« za nadaljevanje povezovanja zahteva uporabniško ime "
+-"in geslo."
++msgid "The remote server “%s” requires the following authentication details to continue to connect:"
++msgstr "Oddaljeni strežnik »%s« za nadaljevanje povezovanja zahteva naslednje podrobnosti overjanja:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/sr@latin.po
++++ b/po/sr@latin.po
+@@ -20,6 +20,42 @@ msgstr ""
+ "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+ "X-Generator: Gtranslator 46.1\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Pregled"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Pomoć"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Pretraži"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Prečice na tastaturi"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Izađi"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Prikaz veza"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Preko celog ekrana"
++
+ #: data/org.gnome.Connections.desktop.in:3
+ #: data/org.gnome.Connections.metainfo.xml.in:7 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -169,11 +205,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+ "Udaljeni server „%s“ zahteva korisničko ime i lozinku da bi nastavio sa "
+-"povezivanjem."
++"povezivanjem:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/sr.po
++++ b/po/sr.po
+@@ -20,6 +20,42 @@ msgstr ""
+ "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+ "X-Generator: Gtranslator 46.1\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Преглед"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Помоћ"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Претражи"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Пречице на тастатури"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Изађи"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Приказ веза"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Преко целог екрана"
++
+ #: data/org.gnome.Connections.desktop.in:3
+ #: data/org.gnome.Connections.metainfo.xml.in:7 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -169,11 +205,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+ "Удаљени сервер „%s“ захтева корисничко име и лозинку да би наставио са "
+-"повезивањем."
++"повезивањем:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/sv.po
++++ b/po/sv.po
+@@ -19,6 +19,42 @@ msgstr ""
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ "X-Generator: Poedit 3.4.4\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Översikt"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Hjälp"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Sök"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Tangentbordsgenvägar"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Avsluta"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Anslutningsvisning"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Helskärm"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -168,11 +204,11 @@ msgstr ""
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Fjärrservern ”%s” kräver ett användarnamn och lösenord för att fortsätta "
+-"ansluta."
++"Fjärrservern ”%s” kräver följande autentiseringsdetaljer för att fortsätta "
++"ansluta:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/tr.po
++++ b/po/tr.po
+@@ -21,6 +21,42 @@ msgstr ""
+ "Plural-Forms: nplurals=1; plural=0;\n"
+ "X-Generator: Poedit 3.4.2\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Genel Görünüm"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Yardım"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Ara"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Klavye Kısayolları"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Çık"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Bağlantı Ekranı"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "Tam Ekran"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -169,12 +205,8 @@ msgstr ""
+ 
+ #: src/dialogs.vala:241
+ #, c-format
+-msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
+-msgstr ""
+-"“%s” uzak sunucusu bağlanmaya devam etmek için kullanıcı adı ve parola "
+-"gerektirir."
++msgid "The remote server “%s” requires the following authentication details to continue to connect:"
++msgstr "“%s” uzak sunucusu bağlanmayı sürdürmek için şu kimlik doğrulama ayrıntılarını gerektirir:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/uk.po
++++ b/po/uk.po
+@@ -19,6 +19,47 @@ msgstr ""
+ "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+ "X-Generator: Lokalize 23.04.3\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "Огляд"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++#| msgid "Help"
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "Довідка"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++#| msgid "Search"
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "Шукати"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++#| msgid "Keyboard Shortcuts"
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "Клавіатурні скорочення"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "Вийти"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++#| msgid "Connections"
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "Показ з'єднання"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++#| msgid "Fullscreen"
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "На увесь екран"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -167,12 +208,15 @@ msgstr ""
+ 
+ #: src/dialogs.vala:241
+ #, c-format
++#| msgid ""
++#| "The remote server “%s” requires a username and password to continue to "
++#| "connect."
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
+ msgstr ""
+-"Для продовження з'єднання віддаленому серверу «%s» потрібне ім'я користувача "
+-"і пароль."
++"Для продовження з'єднання віддаленому серверу «%s» потрібно вказати такі"
++" параметри розпізнавання:"
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+--- a/po/zh_CN.po
++++ b/po/zh_CN.po
+@@ -20,6 +20,42 @@ msgstr ""
+ "Plural-Forms: nplurals=1; plural=0;\n"
+ "X-Generator: Gtranslator 46.1\n"
+ 
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "概览"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "帮助"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "搜索"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "键盘快捷键"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "退出"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "连接显示"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "全屏"
++
+ #: data/org.gnome.Connections.appdata.xml.in:7
+ #: data/org.gnome.Connections.desktop.in:3 src/application.vala:92
+ #: src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:115
+@@ -164,9 +200,9 @@ msgstr "远程服务器“%s”的证书
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
+-msgstr "远程服务器“%s”需要用户名和密码才能继续连接。"
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
++msgstr "远程服务器“%s”需要下列认证详情才能继续连接："
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:131
+diff --git a/po/ug.po b/po/ug.po
+new file mode 100644
+index 0000000..21c2fcb
+--- /dev/null
++++ b/po/ug.po
+@@ -0,0 +1,481 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: \n"
++"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-connections/issues\n"
++"POT-Creation-Date: 2025-09-10 16:25+0000\n"
++"PO-Revision-Date: 2025-09-19 22:43-0400\n"
++"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
++"Language-Team: \n"
++"Language: ug\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"X-Generator: Poedit 3.7\n"
++
++#: data/org.gnome.Connections.desktop.in:2 data/org.gnome.Connections.metainfo.xml.in:7 src/application.vala:92 src/ui/topbar.ui:9 src/ui/window.ui:5 src/window.vala:123
++msgid "Connections"
++msgstr "باغلىنىش"
++
++#. Translators: "windows" refers specifically to the Microsoft Windows brand,
++#. not a desktop window or a pane of glass in the side of a building
++#: data/org.gnome.Connections.desktop.in:9
++msgid "vnc;rdp;remote;desktop;windows;support;access;view"
++msgstr "vnc;rdp;كۆچمە;ئۈستەليۈزى;windows;قوللاش;زىيارەت;كۆرۈنۈش"
++
++#: data/org.gnome.Connections.metainfo.xml.in:8
++msgid "View and use other desktops"
++msgstr "باشقا ئۈستەلئۈستىنى كۆرۈش ۋە ئىشلىتىش"
++
++#: data/org.gnome.Connections.metainfo.xml.in:10
++msgid "Connections allows you to connect to and use other desktops. This can be a great way to access content or software on a different desktop operating system. It can also be used as a way to provide support to users who might need help."
++msgstr "ئۇلىنىش ئارقىلىق باشقا ئۈستەل يۈزىگە ئۇلىنالايسىز ۋە ئىشلىتەلەيسىز. بۇ ئوخشىمىغان ئۈستەل يۈزى مەشغۇلات سىستېمىسىدىكى مەزمۇن ياكى يۇمشاق دېتاللارنى زىيارەت قىلىشنىڭ ياخشى ئۇسۇلى بولالايدۇ. ئۇ يەنە ياردەمگە ئېھتىياجلىق بولغان ئىشلەتكۈچىلەرنى قوللاشنىڭ ئۇسۇلى سۈپىتىدە ئىشلىتىشكە بولىدۇ."
++
++#: data/org.gnome.Connections.metainfo.xml.in:13
++msgid "A range of different operating systems can be connected to, including Linux and Windows desktops. You can also connect to virtual machines."
++msgstr "Linux ۋە Windows ئۈستەليۈزىنى ئۆز ئىچىگە ئالغان بىر قاتار ئوخشىمىغان مەشغۇلات سىستېمىلىرىنى ئۇلىغىلى بولىدۇ. مەۋھۇم ماشىنىلارغىمۇ ئۇلىنالايسىز."
++
++#: data/org.gnome.Connections.metainfo.xml.in:16
++msgid "Connections uses the widely supported VNC and RDP protocols, and one of these must be enabled on the desktop that you want to connect to."
++msgstr "ئۇلىنىش كەڭ قوللايدىغان VNC ۋە RDP كېلىشىمنامىسىنى ئىشلىتىدۇ، سىز ئۇلانماقچى بولغان ئۈستەليۈزىدە بۇلارنىڭ بىرىنى چوقۇم قوزغىتىشىڭىز كېرەك."
++
++#. developer_name tag deprecated with Appstream 1.0
++#: data/org.gnome.Connections.metainfo.xml.in:41
++msgid "The GNOME Project"
++msgstr "GNOME قۇرۇلۇشى"
++
++#: data/org.gnome.Connections.xml:5
++msgid "Remote Desktop (VNC) file"
++msgstr "يىراقتىكى ئۈستەلئۈستى(VNC) ھۆججىتى"
++
++#: src/actions-popover.vala:44
++msgid "Delete"
++msgstr "ئۆچۈر"
++
++#: src/actions-popover.vala:48 src/topbar.vala:66 src/ui/topbar.ui:249
++msgid "Properties"
++msgstr "خاسلىق"
++
++#: src/application.vala:88
++msgid "translator-credits"
++msgstr ""
++"تەرجىمان تۆھپىسى\n"
++" Gheyret Kenji <gheyret@gmail.com>\n"
++"ئابدۇقادىر ئابلىز <sahranbay@gmail.com>"
++
++#: src/application.vala:89 src/application.vala:246
++msgid "A remote desktop client for the GNOME desktop environment"
++msgstr "GNOME ئۈستەل مۇھىتى ئۈچۈن يىراقتىكى ئۈستەليۈزى خېرىدارى"
++
++#: src/application.vala:155
++#, c-format
++msgid "Couldn’t open file of unknown mime type %s"
++msgstr "يوچۇن mime تۈرى %s دىكى ھۆججەتنى ئاچالمايدۇ"
++
++#: src/application.vala:186
++#, c-format
++msgid "Connection to “%s” has been deleted"
++msgstr "«%s» غا باغلىنىش ئۆچۈرۈلدى"
++
++#: src/application.vala:189
++msgid "Undo"
++msgstr "يېنىۋال"
++
++#: src/application.vala:236
++msgid "URL to connect"
++msgstr "باغلىنىدىغان تور ئادرېسى"
++
++#: src/application.vala:237
++msgid "Open .vnc or .rdp file at the given PATH"
++msgstr "بېرىلگەن يولدا .vnc ياكى .rdp ھۆججەتنى ئاچىدۇ"
++
++#: src/application.vala:237
++msgid "PATH"
++msgstr "يول"
++
++#: src/application.vala:238
++msgid "Open in full screen"
++msgstr "پۈتۈن ئېكراندا ئاچ"
++
++#: src/application.vala:261
++msgid "Too many command-line arguments specified.\n"
++msgstr "بۇيرۇق قۇرىدا بەلگىلەنگەن پارامېتىر بەك كۆپ.\n"
++
++#. Translators: %s => the timestamp of when the screenshot was taken.
++#: src/connection.vala:70
++#, c-format
++msgid "Screenshot from %s"
++msgstr "%s دىن ئېلىنغان ئېكران كۆرۈنۈشى"
++
++#: src/connection.vala:85
++msgid "Screenshot taken"
++msgstr "ئېكران كۆرۈنۈشى تۇتۇلدى"
++
++#. Translators: Open is a verb
++#: src/connection.vala:88
++msgid "Open"
++msgstr "ئاچ"
++
++#: src/connection.vala:205
++#, c-format
++msgid "Authentication failed: %s"
++msgstr "دەلىللىيەلمىدى: %s"
++
++#: src/dialogs.vala:167
++#, c-format
++msgid "Connecting to “%s” for the first time. To be sure you're connecting to the machine it claims to be, please verify the fingerprints match. This process is only done once."
++msgstr "تۇنجى قېتىم «%s» بىلەن باغلاندى. باغلانغان ماشىنىنىڭ ساختا ئەمەسلىكىنى جەزملەش ئۈچۈن، بارماق ئىزىنى دەلىللەڭ.بۇ جەريان پەقەت بىرلا قېتىم تاماملىنىدۇ."
++
++#: src/dialogs.vala:201
++#, c-format
++msgid "The remote server “%s” certificate doesn't match local copy. It may be someone's pretending to be the server."
++msgstr "يىراقتىكى مۇلازىمېتىر «%s» گۇۋاھنامىسى يەرلىك كۆپەيتىلگەن نۇسخىسى بىلەن ماس كەلمىدى. بەزىلەر ساختا مۇلازىمېتىر قىياپىتىگە كىرىۋالغان بولۇشى مۇمكىن."
++
++#: src/dialogs.vala:241
++#, c-format
++msgid "The remote server “%s” requires the following authentication details to continue to connect:"
++msgstr "يىراقتىكى «%s» مۇلازىمېتىر باغلىنىشنى داۋاملاشتۇرۇش ئۈچۈن تۆۋەندىكى دەلىللەش تەپسىلاتىغا ئېھتىياجلىق:"
++
++#. Translators: Showing size of widget as WIDTH×HEIGHT here.
++#: src/display-view.vala:156
++#, c-format
++msgid "%d×%d"
++msgstr "%d×%d"
++
++#: src/onboarding-dialog.vala:96 src/ui/onboarding-dialog.ui:148
++msgid "_No Thanks"
++msgstr "ياق، رەھمەت(_N)"
++
++#: src/onboarding-dialog.vala:96
++msgid "_Close"
++msgstr "ياپ(_C)"
++
++#. Translators: Combo item for resizing remote desktop to window's size
++#: src/rdp-preferences-window.vala:49 src/ui/spice-preferences.ui:67 src/ui/vnc-preferences.ui:107
++msgid "Resize desktop"
++msgstr "ئۈستەلئۈستى چوڭلۇقى"
++
++#: src/topbar.vala:58 src/ui/topbar.ui:245
++msgid "Take Screenshot"
++msgstr "ئېكران كۆرۈنۈشى تۇت"
++
++#: src/topbar.vala:62 src/ui/topbar.ui:203 src/ui/topbar.ui:207
++msgid "Fullscreen"
++msgstr "پۈتۈن ئېكران"
++
++#: src/ui/assistant.ui:26
++msgid "Enter the network identifier of the remote desktop to connect to:"
++msgstr "باغلانماقچى بولغان يىراقتىكى ئۈستەلئۈستىنىڭ تور پەرقلەندۈرگۈچىسىنى كىرگۈزۈڭ:"
++
++#: src/ui/assistant.ui:53
++msgid "Connection Type"
++msgstr "باغلىنىش تۈرى"
++
++#: src/ui/assistant.ui:63
++msgid "RDP (standard for connecting to Windows)"
++msgstr "RDP (Windows قا باغلىنىدىغان ئۆلچەملىك كېلىشىم)"
++
++#: src/ui/assistant.ui:72
++msgid "VNC (standard for connecting to Linux)"
++msgstr "VNC (Linux قا باغلىنىدىغان ئۆلچەملىك كېلىشىم)"
++
++#: src/ui/assistant.ui:81
++msgid "SPICE (for connecting to remote VMs)"
++msgstr "SPICE (يىراقتىكى مەۋھۇم كومپيۇتېرغا باغلىنىدۇ)"
++
++#: src/ui/assistant.ui:99 src/ui/topbar.ui:234
++msgid "Help"
++msgstr "ياردەم"
++
++#: src/ui/assistant.ui:109 src/ui/dialog.ui:68 src/ui/dialog.ui:74
++msgid "Connect"
++msgstr "باغلان"
++
++#: src/ui/auth-notification.ui:39
++msgid "_Username"
++msgstr "ئىشلەتكۈچى ئاتى(_U)"
++
++#: src/ui/auth-notification.ui:71
++msgid "_Password"
++msgstr "ئىم(_P)"
++
++#: src/ui/auth-notification.ui:108
++msgid "Sign In"
++msgstr "كىر"
++
++#. Translators: The dialog with this title is shown to the user before opening the connection if needed (e.g. certificate confirmation).
++#: src/ui/dialog.ui:18
++msgid "Open Connection"
++msgstr "باغلىنىشنى ئاچ"
++
++#: src/ui/dialog.ui:37 src/ui/dialog.ui:43
++msgid "Verify"
++msgstr "دەلىللە"
++
++#: src/ui/dialog.ui:105 src/ui/dialog.ui:613
++msgid "Cancel"
++msgstr "ۋاز كەچ"
++
++#: src/ui/dialog.ui:144
++msgid "Verify Fingerprint"
++msgstr "بارماق ئىزى دەلىللە"
++
++#: src/ui/dialog.ui:211
++msgid ""
++"On Windows run certlm.msc or certmgr.msc\n"
++"and copy the certificate from\n"
++"<b>Remote Desktop>Certificates</b> to a file.\n"
++"Then obtain its fingerprint via\n"
++"\"certutil.exe -hashfile file SHA256\".\n"
++"\n"
++"If GNOME is used on the connected endpoint,\n"
++"the fingerprint can be verified in the <b>Settings>Sharing</b>\n"
++"panel or <b>Settings>System</b> panel under\n"
++"<b>Remote Desktop>Verify Encryption</b>."
++msgstr ""
++"Windows تا certlm.msc ياكى certmgr.msc نى ئىجرا قىلىپ ئاندىن گۇۋاھنامىنى\n"
++"<b>يىراقتىكى ئۈستەلئۈستى› گۇۋاھنامە</b> دىن ھۆججەتكە كۆچۈرۈپ ئاندىن ئۇنىڭدىن\n"
++" «certutil.exe -hashfile file SHA256» ئارقىلىق بارماق ئىزىغا ئېرىشىڭ.\n"
++"\n"
++"ئەگەر باغلانغان ئاخىرقى ئۇچتا GNOME نى ئىشلىتىۋاتقان بولسىڭىز بارماق ئىزىنى\n"
++"<b>تەڭشەك›ھەمبەھىر</b> كۆزنەكچە ياكى <b>تەڭشەك›سىستېما</b> كۆزنەكچىنىڭ\n"
++"ئاستىدىكى <b>يىراقتىكى ئۈستەلئۈستى›شىفىر دەلىللەش</b> دىن دەلىللىگىلى بولىدۇ."
++
++#: src/ui/dialog.ui:292
++msgid "Unexpected Certificate"
++msgstr "ئويلىشىلمىغان گۇۋاھنامە"
++
++#: src/ui/dialog.ui:334
++msgid "Delete Local Certificate"
++msgstr "يەرلىك گۇۋاھنامىنى ئۆچۈر"
++
++#: src/ui/dialog.ui:387
++msgid "Authentication Required"
++msgstr "كىملىك دەلىللەش زۆرۈر"
++
++#: src/ui/dialog.ui:438
++msgid "Username…"
++msgstr "ئىشلەتكۈچى ئاتى…"
++
++#: src/ui/dialog.ui:466
++msgid "Password…"
++msgstr "ئىم…"
++
++#: src/ui/dialog.ui:516
++msgid "Domain…"
++msgstr "دائىرە…"
++
++#: src/ui/dialog.ui:537
++msgid ""
++"Domain field is commonly optional and can be\n"
++"left empty."
++msgstr "دائىرە ئادەتتە تاللاشچان بولۇپ بوش قالدۇرۇشقا بولىدۇ."
++
++#: src/ui/dialog.ui:639
++msgid "Authenticate"
++msgstr "كىملىك دەلىللەش"
++
++#: src/ui/kbd-shortcuts-window.ui:18
++msgctxt "shortcut window"
++msgid "Overview"
++msgstr "ئىخچام كۆرۈنۈش"
++
++#: src/ui/kbd-shortcuts-window.ui:25
++msgctxt "shortcut window"
++msgid "Help"
++msgstr "ياردەم"
++
++#: src/ui/kbd-shortcuts-window.ui:33
++msgctxt "shortcut window"
++msgid "Search"
++msgstr "ئىزدە"
++
++#: src/ui/kbd-shortcuts-window.ui:41
++msgctxt "shortcut window"
++msgid "Keyboard Shortcuts"
++msgstr "ھەرپتاختا تېزلەتمىسى"
++
++#: src/ui/kbd-shortcuts-window.ui:49
++msgctxt "shortcut window"
++msgid "Quit"
++msgstr "چېكىن"
++
++#: src/ui/kbd-shortcuts-window.ui:59
++msgctxt "shortcut window"
++msgid "Connection Display"
++msgstr "باغلانما كۆرسەت"
++
++#: src/ui/kbd-shortcuts-window.ui:66
++msgctxt "shortcut window"
++msgid "Fullscreen"
++msgstr "پۈتۈن ئېكران"
++
++#: src/ui/onboarding-dialog.ui:42 src/ui/window.ui:52
++msgid "Welcome to Connections"
++msgstr "باغلىنىشقا خۇش كەلدىڭىز"
++
++#: src/ui/onboarding-dialog.ui:43
++msgid "Click next to learn about remote desktop."
++msgstr "كېيىنكى چېكىلسە يىراقتىكى ئۈستەلئۈستى ھەققىدىكى مول بىلىم."
++
++#: src/ui/onboarding-dialog.ui:50
++msgid "Access other desktops"
++msgstr "باشقا ئۈستەلئۈستىنى زىيارەت قىلىدۇ"
++
++#: src/ui/onboarding-dialog.ui:51
++msgid "Connections allows viewing the screens of other desktops. They can also be controlled using the pointer and keyboard."
++msgstr "باغلىنىش باشقا ئۈستەلئۈستىنىڭ ئېكرانىنى كۆرۈشكە يول قويىدۇ. چاشقىنەك ۋە ھەرپتاختا ئارقىلىق تىزگىنلىگىلى بولىدۇ."
++
++#: src/ui/onboarding-dialog.ui:58
++msgid "Connect to different operating systems"
++msgstr "پەرقلىق مەشغۇلات سىستېمىسىنى باغلايدۇ"
++
++#: src/ui/onboarding-dialog.ui:59
++msgid "You can access Linux, Mac, and Windows desktops."
++msgstr "Lumux، Mac ۋە Windows ئۈستەلئۈستىنى زىيارەت قىلالايسىز."
++
++#: src/ui/onboarding-dialog.ui:66
++msgid "Setup is required"
++msgstr "تەڭشەش زۆرۈر"
++
++#: src/ui/onboarding-dialog.ui:67
++msgid "Remote desktop typically needs to be enabled on the computer you want to connect to."
++msgstr "ئادەتتە يىراقتىكى ئۈستەلئۈستى باغلانماقچى بولغان كومپيۇتېردا قوزغىتىلىشى كېرەك."
++
++#: src/ui/onboarding-dialog.ui:74
++msgid "Start by creating your first connection"
++msgstr "تۇنجى باغلىنىشىڭىزنى قۇرۇشنى باشلاڭ"
++
++#: src/ui/onboarding-dialog.ui:75
++msgid "To begin, you will need the address of the computer you want to connect to."
++msgstr "باشلاشتا، باغلانماقچى بولغان كومپيۇتېرنىڭ ئادرېسىنى بىلىشىڭىز كېرەك."
++
++#: src/ui/rdp-preferences.ui:9 src/ui/spice-preferences.ui:9 src/ui/vnc-preferences.ui:9
++msgid "Connection preferences"
++msgstr "باغلىنىش مايىللىقى"
++
++#: src/ui/rdp-preferences.ui:22 src/ui/spice-preferences.ui:22 src/ui/vnc-preferences.ui:22
++msgid "Address"
++msgstr "ئادرېس"
++
++#: src/ui/rdp-preferences.ui:37 src/ui/spice-preferences.ui:37 src/ui/vnc-preferences.ui:37
++msgid "Name"
++msgstr "ئاتى"
++
++#: src/ui/rdp-preferences.ui:53 src/ui/spice-preferences.ui:68 src/ui/vnc-preferences.ui:108
++msgid "Fit window"
++msgstr "كۆزنەككە ماسلاشتۇر"
++
++#: src/ui/rdp-preferences.ui:54 src/ui/spice-preferences.ui:69 src/ui/vnc-preferences.ui:109
++msgid "Original size"
++msgstr "ئەسلى چوڭلۇقى"
++
++#: src/ui/spice-preferences.ui:52 src/ui/vnc-preferences.ui:73
++msgid "Enable audio"
++msgstr "ئاۋازنى قوزغات"
++
++#: src/ui/spice-preferences.ui:60 src/ui/vnc-preferences.ui:100
++msgid "Scale mode"
++msgstr "كىچىكلەت چوڭايت ھالىتى"
++
++#: src/ui/topbar.ui:18 src/ui/topbar.ui:22
++msgid "New"
++msgstr "يېڭى"
++
++#: src/ui/topbar.ui:40 src/ui/topbar.ui:44
++msgid "Application Menu"
++msgstr "پىروگرامما تىزىملىكى"
++
++#: src/ui/topbar.ui:66 src/ui/topbar.ui:73
++msgid "Search"
++msgstr "ئىزدە"
++
++#: src/ui/topbar.ui:103 src/ui/topbar.ui:108
++msgid "Go Back"
++msgstr "قايت"
++
++#: src/ui/topbar.ui:126 src/ui/topbar.ui:130
++msgid "Display Menu"
++msgstr "كۆرسىتىش تىزىملىكى"
++
++#: src/ui/topbar.ui:150 src/ui/topbar.ui:155
++msgid "Disconnect"
++msgstr "ئۈز"
++
++#: src/ui/topbar.ui:177 src/ui/topbar.ui:230
++msgid "Keyboard Shortcuts"
++msgstr "ھەرپتاختا تېزلەتمىسى"
++
++#: src/ui/topbar.ui:181
++msgid "Keyboard shortcuts"
++msgstr "ھەرپتاختا تېزلەتمىسى"
++
++#: src/ui/topbar.ui:238
++msgid "About Connections"
++msgstr "ئۇلىنىش ھەققىدە"
++
++#: src/ui/topbar.ui:263
++msgid "Ctrl + Alt + Backspace"
++msgstr "Ctrl + Alt + Backspace"
++
++#: src/ui/topbar.ui:270
++msgid "Ctrl + Alt + Del"
++msgstr "Ctrl + Alt + Del"
++
++#: src/ui/topbar.ui:277
++msgid "Ctrl + Alt + F1"
++msgstr "Ctrl + Alt + F1"
++
++#: src/ui/topbar.ui:284
++msgid "Ctrl + Alt + F2"
++msgstr "Ctrl + Alt + F2"
++
++#: src/ui/topbar.ui:291
++msgid "Ctrl + Alt + F3"
++msgstr "Ctrl + Alt + F3"
++
++#: src/ui/topbar.ui:298
++msgid "Ctrl + Alt + F7"
++msgstr "Ctrl + Alt + F7"
++
++#: src/ui/vnc-preferences.ui:54
++msgid "Display"
++msgstr "كۆرسەتكۈچ"
++
++#: src/ui/vnc-preferences.ui:59
++msgid "View only"
++msgstr "پەقەت كۆرۈش"
++
++#: src/ui/vnc-preferences.ui:66
++msgid "Show local pointer"
++msgstr "يەرلىك نىشانلىغۇچنى كۆرسەت"
++
++#: src/ui/vnc-preferences.ui:81
++msgid "Bandwidth"
++msgstr "بەلباغ كەڭلىكى"
++
++#: src/ui/vnc-preferences.ui:88
++msgid "High quality"
++msgstr "يۇقىرى سۈپەت"
++
++#: src/ui/vnc-preferences.ui:89
++msgid "Fast refresh"
++msgstr "تېز يېڭىلاش"
++
++#: src/ui/window.ui:53
++msgid "Click the add button to create your first connection"
++msgstr "قوش توپچىنى چېكىپ تۇنجى باغلىنىشىڭىزنى قۇرۇڭ"
++
++#: src/vnc-connection.vala:150
++msgid "Couldn’t parse the file"
++msgstr "ھۆججەتنى تەھلىل قىلالمىدى"
++
++#. Translators: %s is a VNC file key
++#: src/vnc-connection.vala:158 src/vnc-connection.vala:163 src/vnc-connection.vala:168 src/vnc-connection.vala:173
++#, c-format
++msgid "VNC File is missing key “%s”"
++msgstr "VNC ھۆججەتنىڭ ئاچقۇچى «%s» كەم"
+--- a/po/zh_TW.po
++++ b/po/zh_TW.po
+@@ -159,9 +159,9 @@ msgstr "遠端伺服器「%s」憑證與
+ #: src/dialogs.vala:241
+ #, c-format
+ msgid ""
+-"The remote server “%s” requires a username and password to continue to "
+-"connect."
+-msgstr "遠端伺服器「%s」需要使用者名稱和密碼才能繼續連線。"
++"The remote server “%s” requires the following authentication details to "
++"continue to connect:"
++msgstr "遠端伺服器「%s」需要以下核對詳細資訊才能繼續連線："
+ 
+ #. Translators: Showing size of widget as WIDTH×HEIGHT here.
+ #: src/display-view.vala:128
