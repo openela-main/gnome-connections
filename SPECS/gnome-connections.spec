@@ -7,7 +7,7 @@
 
 Name:           gnome-connections
 Version:        47.2.1
-Release:        3%{?dist}
+Release:        7%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
 License:        GPL-3.0-or-later
@@ -17,6 +17,10 @@ Source0:        https://download.gnome.org/sources/gnome-connections/%{url_ver}/
 Patch:          gnome-connections-47.2.1-add-shortcuts-window.patch
 Patch:          gnome-connections-47.2.1-authentication-details.patch
 Patch:          gnome-connections-47.2.1-translations.patch
+Patch:          gnome-connections-47.2.1-rdp-initialization-crash.patch
+Patch:          gnome-connections-47.2.1-focus-chain.patch
+Patch:          gnome-connections-47.2.1-cursor-switching.patch
+Patch:          gnome-connections-47.2.1-init-rdpPointer.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -87,6 +91,22 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Tue Jun 16 2026 Marek Kasik <mkasik@redhat.com> - 47.2.1-7
+- Initialize rdpPointer
+- Resolves: RHEL-183930
+
+* Tue Mar 31 2026 Marek Kasik <mkasik@redhat.com> - 47.2.1-6
+- Propagate cursor changes
+- Resolves: RHEL-153847
+
+* Fri Mar 20 2026 Marek Kasik <mkasik@redhat.com> - 47.2.1-5
+- Fix focus chain of authentication dialog
+- Resolves: RHEL-153842
+
+* Fri Feb 27 2026 Marek Kasik <mkasik@redhat.com> - 47.2.1-4
+- Check initialization of RDP
+- Resolves: RHEL-143806
+
 * Wed Feb 4 2026 Marek Kasik <mkasik@redhat.com> - 47.2.1-3
 - Make requests for passwords more general
 - Resolves: RHEL-80675

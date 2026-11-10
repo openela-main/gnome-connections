@@ -1,0 +1,270 @@
+From a14968b1004910bf2a698b632e7b140b66ea7420 Mon Sep 17 00:00:00 2001
+From: Marek Kasik <mkasik@redhat.com>
+Date: Thu, 26 Mar 2026 17:02:17 +0100
+Subject: [PATCH] display-view: Propagate cursor changes
+
+Propagate cursor change from display widget to the eventbox.
+
+Fixes: #140
+---
+ src/display-view.vala | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+From 91391c13213ddfd72782ed0ca0a15ef5a4d6600c Mon Sep 17 00:00:00 2001
+From: akallabeth <armin.novak@thincast.com>
+Date: Thu, 26 Mar 2026 16:30:01 +0100
+Subject: [PATCH 1/2] frdp-session: Reintroduce cursor switching
+
+Reintroduce code by akallabeth <armin.novak@thincast.com> which adds
+support for RDP mouse cursor.
+
+Backported by Marek Kasik
+
+See gnome-connections' issue #140
+---
+ src/frdp-session.c | 140 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 140 insertions(+)
+
+From 3b907b87480f5ce5affae68fb300823af80a2ba1 Mon Sep 17 00:00:00 2001
+From: Marek Kasik <mkasik@redhat.com>
+Date: Thu, 26 Mar 2026 16:30:24 +0100
+Subject: [PATCH 2/2] frdp-session: Properly scale mouse cursor
+
+Let's scale cursor's surface ourselves on HiDPI displays to not
+scale it twice. This achieves higher quality cursor.
+
+Assisted-by: Claude Code v2.1.83 (Sonnet 4.5)
+
+See gnome-connections' issue #140
+---
+ src/frdp-session.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/src/display-view.vala b/src/display-view.vala
+index 1180939..55cba53 100644
+--- a/src/display-view.vala
++++ b/src/display-view.vala
+@@ -75,9 +75,9 @@ namespace Connections {
+             draw_id = display.draw.connect (() => {
+                 display.disconnect (draw_id);
+ 
+-                /*cursor_id = display.get_window ().notify["cursor"].connect (() => {
+-                   event_box.get_window ().set_cursor (display.get_window ().cursor);
+-                });*/
++                display.get_window ().notify["cursor"].connect (() => {
++                   event_box.get_window ().set_cursor (display.get_window ().get_cursor ());
++                });
+ 
+                 return false;
+             });
+diff --git a/src/frdp-session.c b/src/frdp-session.c
+index b5d24be..fe3e256 100644
+--- a/subprojects/gtk-frdp/src/frdp-session.c
++++ b/subprojects/gtk-frdp/src/frdp-session.c
+@@ -193,6 +193,142 @@ frdp_session_update_mouse_pointer (FrdpSession  *self)
+   gdk_window_set_cursor (window, cursor);
+ }
+ 
++static BOOL
++frdp_pointer_new (rdpContext *context,
++                  rdpPointer *pointer)
++{
++  frdpContext *fcontext = (frdpContext *) context;
++  frdpPointer *fpointer = (frdpPointer *) pointer;
++  int stride;
++  unsigned char *data;
++  cairo_surface_t *surface;
++
++  if (fcontext == NULL || fpointer == NULL)
++    return FALSE;
++
++  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
++                                        pointer->width,
++                                        pointer->height);
++  if (surface == NULL)
++    return FALSE;
++
++  { /* FreeRDP BUG https://github.com/FreeRDP/FreeRDP/issues/5061
++     * the function freerdp_image_copy_from_pointer_data
++     * does not initialize the buffer which results in broken alpha data. */
++    cairo_t *cairo = cairo_create (surface);
++
++    cairo_set_source_rgba (cairo, 0.0, 0.0, 0.0, 1.0);
++    cairo_fill (cairo);
++    cairo_paint (cairo);
++    cairo_destroy (cairo);
++  }
++
++  data = cairo_image_surface_get_data (surface);
++  if (data == NULL)
++    goto fail;
++
++  stride = cairo_format_stride_for_width (CAIRO_FORMAT_ARGB32, pointer->width);
++  if (!freerdp_image_copy_from_pointer_data (data, PIXEL_FORMAT_BGRA32,
++                                             stride, 0, 0, pointer->width,
++                                             pointer->height,
++                                             pointer->xorMaskData,
++                                             pointer->lengthXorMask,
++                                             pointer->andMaskData,
++                                             pointer->lengthAndMask,
++                                             pointer->xorBpp,
++                                             &context->gdi->palette))
++    goto fail;
++
++  fpointer->data = surface;
++
++  return TRUE;
++
++fail:
++  if (surface != NULL)
++    cairo_surface_destroy (surface);
++
++  return FALSE;
++}
++
++static void
++frdp_pointer_free (rdpContext *context,
++                   rdpPointer *pointer)
++{
++  frdpPointer *fpointer = (frdpPointer *) pointer;
++
++  if (fpointer != NULL && fpointer->data != NULL) {
++    cairo_surface_destroy (fpointer->data);
++    fpointer->data = NULL;
++  }
++}
++
++static BOOL
++frdp_pointer_set (rdpContext *context,
++                  rdpPointer *pointer)
++{
++  frdpContext *fcontext = (frdpContext *) context;
++  frdpPointer *fpointer = (frdpPointer *) pointer;
++  FrdpSessionPrivate *priv = fcontext->self->priv;
++
++  priv->cursor = fpointer;
++  priv->cursor_null = FALSE;
++
++  frdp_session_update_mouse_pointer (fcontext->self);
++
++  return TRUE;
++}
++
++static BOOL
++frdp_pointer_set_null (rdpContext *context)
++{
++  frdpContext *fcontext = (frdpContext *) context;
++  FrdpSessionPrivate *priv = fcontext->self->priv;
++
++  priv->cursor = NULL;
++  priv->cursor_null = TRUE;
++
++  frdp_session_update_mouse_pointer (fcontext->self);
++
++  return TRUE;
++}
++
++static BOOL
++frdp_pointer_set_default (rdpContext *context)
++{
++  frdpContext *fcontext = (frdpContext *) context;
++  FrdpSessionPrivate *priv = fcontext->self->priv;
++
++  priv->cursor = NULL;
++  priv->cursor_null = FALSE;
++
++  frdp_session_update_mouse_pointer (fcontext->self);
++
++  return TRUE;
++}
++
++static BOOL
++frdp_pointer_set_position (rdpContext *context,
++                           UINT32      x,
++                           UINT32      y)
++{
++  return TRUE;
++}
++
++static void
++frdp_register_pointer (rdpGraphics *graphics)
++{
++  rdpPointer pointer;
++
++  pointer.size = sizeof (frdpPointer);
++  pointer.New = frdp_pointer_new;
++  pointer.Free = frdp_pointer_free;
++  pointer.Set = frdp_pointer_set;
++  pointer.SetNull = frdp_pointer_set_null;
++  pointer.SetDefault = frdp_pointer_set_default;
++  pointer.SetPosition = frdp_pointer_set_position;
++  graphics_register_pointer (graphics, &pointer);
++}
++
+ static guint32
+ frdp_session_get_best_color_depth (FrdpSession *self)
+ {
+@@ -676,6 +812,7 @@ frdp_post_connect (freerdp *freerdp_session)
+ 
+   gdi_init (freerdp_session, color_format);
+ 
++  frdp_register_pointer (freerdp_session->context->graphics);
+   freerdp_session->context->update->BeginPaint = frdp_begin_paint;
+   freerdp_session->context->update->EndPaint = frdp_end_paint;
+   freerdp_session->context->update->DesktopResize = frdp_desktop_resize;
+@@ -710,6 +847,9 @@ frdp_post_disconnect (freerdp *instance)
+                                       frdp_on_channel_connected_event_handler);
+   PubSub_UnsubscribeChannelDisconnected (context->pubSub,
+                                          frdp_on_channel_disconnected_event_handler);
++
++  frdp_pointer_set_null (context);
++
+   gdi_free (instance);
+ }
+ 
+diff --git a/src/frdp-session.c b/src/frdp-session.c
+index fe3e256..936ef4e 100644
+--- a/subprojects/gtk-frdp/src/frdp-session.c
++++ b/subprojects/gtk-frdp/src/frdp-session.c
+@@ -160,15 +160,16 @@ frdp_session_update_mouse_pointer (FrdpSession  *self)
+     cursor =  gdk_cursor_new_from_surface (display, surface, 0, 0);
+     cairo_surface_destroy (surface);
+     cairo_destroy (cairo);
+-  } else if (!priv->show_cursor || !priv->cursor)
++  } else if (!priv->show_cursor || !priv->cursor) {
+       /* No cursor set or none to show */
+     cursor = gdk_cursor_new_from_name (display, "default");
+-  else {
++  } else {
+     rdpPointer *pointer = &priv->cursor->pointer;
++    int window_scale_factor = gdk_window_get_scale_factor (window);
+     double x = priv->cursor->pointer.xPos * priv->scale;
+     double y = priv->cursor->pointer.yPos * priv->scale;
+-    double w = pointer->width * priv->scale;
+-    double h = pointer->height * priv->scale;
++    double w = ceil (pointer->width * priv->scale) * window_scale_factor;
++    double h = ceil (pointer->height * priv->scale) * window_scale_factor;
+     cairo_surface_t *surface;
+     cairo_t *cairo;
+ 
+@@ -180,12 +181,18 @@ frdp_session_update_mouse_pointer (FrdpSession  *self)
+     surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, w, h);
+     cairo = cairo_create (surface);
+ 
+-    cairo_scale(cairo, self->priv->scale, self->priv->scale);
++    cairo_scale (cairo,
++                 self->priv->scale * window_scale_factor,
++                 self->priv->scale * window_scale_factor);
+     cairo_set_source_surface (cairo, priv->cursor->data, 0, 0);
+     cairo_paint (cairo);
+ 
+     cairo_fill (cairo);
+-    cursor =  gdk_cursor_new_from_surface (display, surface, x, y);
++    /* Set device scale to prevent GDK from scaling again based on HiDPI */
++    cairo_surface_set_device_scale (surface,
++                                    window_scale_factor,
++                                    window_scale_factor);
++    cursor = gdk_cursor_new_from_surface (display, surface, x, y);
+     cairo_surface_destroy (surface);
+     cairo_destroy (cairo);
+   }

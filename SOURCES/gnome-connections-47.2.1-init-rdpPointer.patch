@@ -1,0 +1,27 @@
+From 040b75d5e92424da1af0b5228d89cddd9d6cc26c Mon Sep 17 00:00:00 2001
+From: Marek Kasik <mkasik@redhat.com>
+Date: Tue, 16 Jun 2026 17:19:43 +0200
+Subject: [PATCH] frdp-session: Initialize rdpPointer
+
+Initialize rdpPointer in frdp_register_pointer() to avoid crash
+caused by accessing of uninitialized member of the structure.
+---
+ src/frdp-session.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/frdp-session.c b/src/frdp-session.c
+index 955a534..f953772 100644
+--- a/subprojects/gtk-frdp/src/frdp-session.c
++++ b/subprojects/gtk-frdp/src/frdp-session.c
+@@ -324,7 +324,7 @@ frdp_pointer_set_position (rdpContext *context,
+ static void
+ frdp_register_pointer (rdpGraphics *graphics)
+ {
+-  rdpPointer pointer;
++  rdpPointer pointer = { 0 };
+ 
+   pointer.size = sizeof (frdpPointer);
+   pointer.New = frdp_pointer_new;
+-- 
+2.54.0
+

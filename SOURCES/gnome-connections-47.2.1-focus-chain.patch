@@ -1,0 +1,251 @@
+From 9fda4f80c2184ce0591c162979ca0f021328a5c2 Mon Sep 17 00:00:00 2001
+From: Marek Kasik <mkasik@redhat.com>
+Date: Tue, 17 Mar 2026 13:32:41 +0100
+Subject: [PATCH 1/4] dialogs: Fix focus chain of authentication dialog
+
+Previously, first focused widget was first visible action row instead
+of the first visible entry. This is set directly now during construction.
+
+Also focus chain is now set to cycle through the widgets of authentication
+dialog in meaningful manner. This is done via connecting to "focus" signal
+of respective widgets.
+
+However, changing focus using arrows behaves as if "tab" key is used since
+the widgets inside HdyActionRows always receives only TAB_FORWARD or
+TAB_BACKWARD directions for some reason.
+
+Assisted-by: Claude Code v2.1.74 (Sonnet 4.5)
+---
+ src/dialogs.vala | 155 +++++++++++++++++++++++++++++++++++++++++++++++
+ src/ui/dialog.ui |   7 ++-
+ 2 files changed, 160 insertions(+), 2 deletions(-)
+
+diff --git a/src/dialogs.vala b/src/dialogs.vala
+index dd26544..ee2cc4b 100644
+--- a/src/dialogs.vala
++++ b/src/dialogs.vala
+@@ -80,6 +80,18 @@ namespace Connections {
+         [GtkChild]
+         private unowned Hdy.ActionRow domain_row;
+ 
++        [GtkChild]
++        private unowned Gtk.Button show_password_button;
++
++        [GtkChild]
++        private unowned Gtk.MenuButton help_domain_button;
++
++        [GtkChild]
++        private unowned Gtk.Button cancel_authentication_button;
++
++        [GtkChild]
++        private unowned Gtk.Button authenticate_authentication_button;
++
+         private Mutex mutex;
+ 
+         construct {
+@@ -106,6 +118,140 @@ namespace Connections {
+             Timeout.add (50, check_show_flags);
+ 
+             delete_event.connect (hide_when_delete);
++
++            // Set up proper focus chain: username_entry -> password_entry -> show_password_button ->
++            // domain_entry -> help_domain_button -> authenticate_authentication_button -> cancel_authentication_button
++            username_entry.focus.connect ((direction) => {
++                switch (direction) {
++                    case Gtk.DirectionType.TAB_FORWARD:
++                        if (password_row.visible) {
++                            password_entry.grab_focus ();
++                        } else if (domain_row.visible) {
++                            domain_entry.grab_focus ();
++                        } else {
++                            authenticate_authentication_button.grab_focus ();
++                        }
++                        return true;
++                    case Gtk.DirectionType.TAB_BACKWARD:
++                        cancel_authentication_button.grab_focus ();
++                        return true;
++                    default:
++                        return false;
++                }
++            });
++
++            password_entry.focus.connect ((direction) => {
++                switch (direction) {
++                    case Gtk.DirectionType.TAB_FORWARD:
++                        show_password_button.grab_focus ();
++                        return true;
++                    case Gtk.DirectionType.TAB_BACKWARD:
++                        if (username_row.visible) {
++                            username_entry.grab_focus ();
++                        } else {
++                            cancel_authentication_button.grab_focus ();
++                        }
++                        return true;
++                    default:
++                        return false;
++                }
++            });
++
++            show_password_button.focus.connect ((direction) => {
++                switch (direction) {
++                    case Gtk.DirectionType.TAB_FORWARD:
++                        if (domain_row.visible) {
++                            domain_entry.grab_focus ();
++                        } else {
++                            authenticate_authentication_button.grab_focus ();
++                        }
++                        return true;
++                    case Gtk.DirectionType.TAB_BACKWARD:
++                        password_entry.grab_focus ();
++                        return true;
++                    default:
++                        return false;
++                }
++            });
++
++            domain_entry.focus.connect ((direction) => {
++                switch (direction) {
++                    case Gtk.DirectionType.TAB_FORWARD:
++                        help_domain_button.grab_focus ();
++                        return true;
++                    case Gtk.DirectionType.TAB_BACKWARD:
++                        if (password_row.visible) {
++                            show_password_button.grab_focus ();
++                        } else if (username_row.visible) {
++                            username_entry.grab_focus ();
++                        } else {
++                            cancel_authentication_button.grab_focus ();
++                        }
++                        return true;
++                    default:
++                        return false;
++                }
++            });
++
++            help_domain_button.focus.connect ((direction) => {
++                switch (direction) {
++                    case Gtk.DirectionType.TAB_FORWARD:
++                        authenticate_authentication_button.grab_focus ();
++                        return true;
++                    case Gtk.DirectionType.TAB_BACKWARD:
++                        domain_entry.grab_focus ();
++                        return true;
++                    default:
++                        return false;
++                }
++            });
++
++            authenticate_authentication_button.focus.connect ((direction) => {
++                switch (direction) {
++                    case Gtk.DirectionType.TAB_FORWARD:
++                    case Gtk.DirectionType.DOWN:
++                        cancel_authentication_button.grab_focus ();
++                        return true;
++                    case Gtk.DirectionType.TAB_BACKWARD:
++                    case Gtk.DirectionType.UP:
++                        if (domain_row.visible) {
++                            help_domain_button.grab_focus ();
++                        } else if (password_row.visible) {
++                            show_password_button.grab_focus ();
++                        } else if (username_row.visible) {
++                            username_entry.grab_focus ();
++                        } else {
++                            cancel_authentication_button.grab_focus ();
++                        }
++                        return true;
++                    default:
++                        return false;
++                }
++            });
++
++            cancel_authentication_button.focus.connect ((direction) => {
++                switch (direction) {
++                    case Gtk.DirectionType.TAB_FORWARD:
++                    case Gtk.DirectionType.DOWN:
++                        // Cycle back to the first visible entry
++                        if (username_row.visible) {
++                            username_entry.grab_focus ();
++                        } else if (password_row.visible) {
++                            password_entry.grab_focus ();
++                        } else if (domain_row.visible) {
++                            domain_entry.grab_focus ();
++                        } else {
++                            authenticate_authentication_button.grab_focus ();
++                        }
++                        return true;
++                    case Gtk.DirectionType.TAB_BACKWARD:
++                    case Gtk.DirectionType.UP:
++                        authenticate_authentication_button.grab_focus ();
++                        return true;
++                    default:
++                        return false;
++                }
++            });
+         }
+ 
+         bool check_show_flags () {
+@@ -246,6 +392,15 @@ namespace Connections {
+             content_stack.show ();
+             dialog_headerbar.hide ();
+             present ();
++
++            // Set focus to the first visible entry field
++            if (need_username) {
++                username_entry.grab_focus ();
++            } else if (need_password) {
++                password_entry.grab_focus ();
++            } else if (need_domain) {
++                domain_entry.grab_focus ();
++            }
+         }
+ 
+         /* It is safe to call this from other threads as is usually the case. */
+diff --git a/src/ui/dialog.ui b/src/ui/dialog.ui
+index 27b2fb7..7f3e8f4 100644
+--- a/src/ui/dialog.ui
++++ b/src/ui/dialog.ui
+@@ -428,6 +428,7 @@ panel or &lt;b&gt;Settings>System&lt;/b&gt; panel under
+                                   <object class="HdyActionRow" id="username_row">
+                                     <property name="activatable-widget">username_entry</property>
+                                     <property name="visible">True</property>
++                                    <property name="can-focus">False</property>
+                                     <child>
+                                       <object class="GtkEntry" id="username_entry">
+                                         <property name="visible">True</property>
+@@ -455,6 +456,7 @@ panel or &lt;b&gt;Settings>System&lt;/b&gt; panel under
+                                   <object class="HdyActionRow" id="password_row">
+                                     <property name="activatable-widget">password_entry</property>
+                                     <property name="visible">True</property>
++                                    <property name="can-focus">False</property>
+                                     <child>
+                                       <object class="GtkEntry" id="password_entry">
+                                         <property name="visibility">False</property>
+@@ -473,7 +475,7 @@ panel or &lt;b&gt;Settings>System&lt;/b&gt; panel under
+                                         <property name="visible">True</property>
+                                         <property name="halign">center</property>
+                                         <property name="valign">center</property>
+-                                        <property name="can_focus">False</property>
++                                        <property name="can_focus">True</property>
+                                         <property name="relief">none</property>
+                                         <property name="sensitive">True</property>
+                                         <signal name="clicked" handler="show_password_button_clicked" object="ConnectionsDialogsWindow" swapped="no" />
+@@ -506,6 +508,7 @@ panel or &lt;b&gt;Settings>System&lt;/b&gt; panel under
+                                   <object class="HdyActionRow" id="domain_row">
+                                     <property name="activatable-widget">domain_entry</property>
+                                     <property name="visible">True</property>
++                                    <property name="can-focus">False</property>
+                                     <child>
+                                       <object class="GtkEntry" id="domain_entry">
+                                         <property name="visible">True</property>
+@@ -545,7 +548,7 @@ left empty.</property>
+                                         <property name="visible">True</property>
+                                         <property name="halign">center</property>
+                                         <property name="valign">center</property>
+-                                        <property name="can_focus">False</property>
++                                        <property name="can_focus">True</property>
+                                         <property name="relief">none</property>
+                                         <property name="sensitive">True</property>
+                                         <property name="popover">domain_help_popover</property>
+-- 
+2.53.0
+
